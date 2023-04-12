@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/11 19:40:09 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:17:32 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,11 @@ typedef struct s_ps_deck
 	t_ps_subseq	*ref_sub;
 }				t_ps_deck;
 
-void		push_swap(int argc, char **argv);
+int			main(int argc, char **argv);
 t_ps_deck	*parse_input(int argc, char **argv);
 t_ps_deck	*strs_to_deck(char **nbrs);
 int			ps_atoi(const char *str, int *check);
 int			have_duplicate(t_ps_deck *a);
-
 
 t_ps_node	*ps_new_node(int raw);
 t_ps_deck	*ps_new_deck(void);

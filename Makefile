@@ -2,28 +2,15 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 DIR_LIBFT = ./libft/
 LIBFT = libft.a
-SRC = ft_capx_to_field.c \
-		ft_chr_to_field.c \
-		ft_chrs_to_field.c \
-		ft_clear_field.c \
-		ft_convert_format.c \
-		ft_di_to_field.c \
-		ft_lstiter_strlensum.c \
-		ft_new_fieldnode_free.c \
-		ft_newfield.c \
-		ft_printf.c \
-		ft_ptraddress_to_field.c \
-		ft_str_to_field.c \
-		ft_str_to_fieldlst.c \
-		ft_terminate_on_error.c \
-		ft_u_to_field.c \
-		ft_ulltostr_base.c \
-		ft_x_to_field.c \
-		ft_convert_empty_str.c \
-		ft_print_fields.c
+SRC = parse_input.c \
+		ps_deck_add.c \
+		ps_deck_remove.c \
+		ps_deck.c \
+		push_swap.c \
+		strs_to_deck.c
 
 OBJECTS = $(SRC:.c=.o)
-NAME = libftprintf.a
+NAME = push_swap
 
 .PHONY: all bonus clean fclean re
 
@@ -35,7 +22,7 @@ all : $(NAME)
 $(NAME) : make_all
 
 make_all : $(LIBFT) $(OBJECTS)
-			$(AR) rcs $(NAME) $(OBJECTS)
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L. -lft
 			@touch make_all
 
 $(LIBFT) :
