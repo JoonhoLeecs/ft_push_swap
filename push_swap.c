@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:38:56 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/12 21:29:03 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:50:57 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	if (b == 0)
 		exit (1);
 	ops = ps_sort_record(a, b);
-	pstest_print_decks(a, b);
+	pstest_print_decks_subs(a, b);
 	ps_print_ops(ops);
 	// clear_all(a, b, ops);
 	return (0);
@@ -77,6 +77,43 @@ void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b)
 
 }
 
+void	pstest_print_decks_subs(t_ps_deck *a, t_ps_deck *b)
+{
+	int i;
+	int na;
+	int nb;
+	int max;
+	t_ps_node *a_iter;
+	t_ps_node *b_iter;
+
+	na = a->n_node;
+	nb = b->n_node;
+	max = (na >= nb) * na + (na < nb) * nb;
+	i = 0;
+	a_iter = a->top;
+	b_iter = b->top;
+	while (i < max)
+	{
+		if (i >= max - na && i < max - nb)
+		{
+			printf("|%15d|%10d|%15s|%10s|\n", a_iter->raw, a_iter->sub_ind, "", "");
+			a_iter = a_iter->next;
+		}
+		else if (i < max - na && i >= max - nb)
+		{
+			printf("|%15s|%10s|%15d|%10d|\n", "", "", b_iter->raw, b_iter->sub_ind);
+			b_iter = b_iter->next;
+		}
+		else if (i >= max - na && i >= max - nb)
+		{
+			printf("|%15d|%10d|%15d|%10d|\n", a_iter->raw, a_iter->sub_ind, b_iter->raw, b_iter->sub_ind);
+			a_iter = a_iter->next;
+			b_iter = b_iter->next;
+		}
+		i++;
+	}
+	printf("|a:%11dea|a:%8d|b:%11dea|b:%8d|\n", na, a->n_subseq, nb, b->n_subseq);
+}
 // ps_sa(a, ops);
 // pstest_print_decks(a, b);
 // ps_pb(a, b, ops);

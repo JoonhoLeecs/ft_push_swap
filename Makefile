@@ -16,7 +16,9 @@ SRC = parse_input.c \
 		push_swap.c \
 		strs_to_deck.c \
 		sort_small.c \
-		sort_small2.c
+		sort_small2.c \
+		ps_subseq.c \
+		assign_runs.c
 
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap

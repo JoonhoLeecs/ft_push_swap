@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 09:26:22 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:01:05 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_ps_subseq
 {
 	int					sub_ind;
 	int					n_node;
+	int					divide;
 	t_ps_node			*top;
 	t_ps_node			*bottom;
 	struct s_ps_subseq	*next_sub;
@@ -78,6 +79,17 @@ int			sort_four(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			sort_five(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
+int			assign_subs(t_ps_deck *a);
+
+int			divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			calc_divide(t_ps_deck *a);
+int			ps_reverse_ra(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+
+int			ps_sub_ra(t_ps_deck *a, t_ops_deck *ops);
+int			ps_sub_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			ps_sub_para(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+
 int			ps_sa(t_ps_deck *a, t_ops_deck *ops);
 int			ps_sb(t_ps_deck *b, t_ops_deck *ops);
 int			ps_ss(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
@@ -107,7 +119,14 @@ void		ps_clear_oplst(t_oplst *oplst);
 t_ops_deck	*ps_clear_ops_deck(t_ops_deck *ops_deck);
 void		ps_print_ops(t_ops_deck *ops_deck);
 
+t_ps_subseq	*sub_new(t_ps_node *top, t_ps_node *bottom, int n, int ind);
+void		sub_add_top(t_ps_deck *a, t_ps_subseq *sub);
+void		sub_add_bottom(t_ps_deck *a, t_ps_subseq *sub);
+t_ps_subseq	*sub_remove_top(t_ps_deck *deck);
+t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck);
+
 // the following functions are temporary to check variables in process
 void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
+void	pstest_print_decks_subs(t_ps_deck *a, t_ps_deck *b);
 
 #endif

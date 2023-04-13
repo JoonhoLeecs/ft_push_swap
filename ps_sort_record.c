@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:14:30 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 09:29:52 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:46:05 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ t_ops_deck	*ps_sort_record(t_ps_deck *a, t_ps_deck *b)
 	if (ops == 0)
 		return (0);
 	if (a->n_node <= 5)
-		check += sort_small(a, b, ops);
-	check = (check == 0) * (-1) + (check != 0) * 1;
-	// if (check == 0)
-	// 	check += assign_subseq(a, ops);
-	// if (check == 0)
-	// 	check += divide_initial(a, b, ops);
+		check += sort_small(a, b, ops) * 2 - 1;
+	if (check == 0)
+		check += assign_subs(a);
+	if (check == 0)
+		check += divide_subs(a, b, ops);
 	// if (check == 0)
 	// 	check += repeat_merge(a, b, ops);
 	// if (check == 0)

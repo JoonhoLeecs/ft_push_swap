@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:17:00 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 09:29:33 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:51:24 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 		+ (a->bottom->raw < b->bottom->raw) * (b->bottom->raw);
 	while (b->n_node != 0 && check == 0)
 	{
-		pstest_print_decks(a, b);
 		if ((a->bottom->raw < b->top->raw && is_ordered(a))
 			|| a->top->raw > b->top->raw)
 		{
@@ -50,7 +49,6 @@ int	merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	}
 	while (a->bottom->raw != max && check == 0)
 		check += ps_ra(a, ops);
-	pstest_print_decks(a, b);
 	return (check);
 }
 
