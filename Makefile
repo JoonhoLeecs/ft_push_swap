@@ -6,8 +6,17 @@ SRC = parse_input.c \
 		ps_deck_add.c \
 		ps_deck_remove.c \
 		ps_deck.c \
+		ps_ops_add.c \
+		ps_ops.c \
+		ps_papb.c \
+		ps_rr.c \
+		ps_rrr.c \
+		ps_sort_record.c \
+		ps_ss.c \
 		push_swap.c \
-		strs_to_deck.c
+		strs_to_deck.c \
+		sort_small.c \
+		sort_small2.c
 
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap
@@ -19,11 +28,10 @@ all : $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME) : make_all
+$(NAME) : $(LIBFT) $(OBJECTS)
+			$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -L. -lft
 
-make_all : $(LIBFT) $(OBJECTS)
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) -L. -lft
-			@touch make_all
+# -g3 -fsanitize=address
 
 $(LIBFT) :
 	$(MAKE) bonus -C $(DIR_LIBFT)

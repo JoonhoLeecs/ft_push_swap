@@ -6,17 +6,19 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:38:56 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/12 10:17:16 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:29:03 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
+
 int	main(int argc, char **argv)
 {
 	t_ps_deck	*a;
 	t_ps_deck	*b;
-	char		**ops;
+	t_ops_deck	*ops;
 
 	if (argc == 1)
 		return (0);
@@ -26,9 +28,9 @@ int	main(int argc, char **argv)
 	b = ps_new_deck();
 	if (b == 0)
 		exit (1);
+	ops = ps_sort_record(a, b);
 	pstest_print_decks(a, b);
-	// ops = sort_record(a, b, ops);
-	// print_ops(ops);
+	ps_print_ops(ops);
 	// clear_all(a, b, ops);
 	return (0);
 }
@@ -55,12 +57,12 @@ void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b)
 	{
 		if (i >= max - na && i < max - nb)
 		{
-			printf("|%15d|%15 |\n", a_iter->raw);
+			printf("|%15d|%15s|\n", a_iter->raw, "");
 			a_iter = a_iter->next;
 		}
 		else if (i < max - na && i >= max - nb)
 		{
-			printf("|%15 |%15d|\n", b_iter->raw);
+			printf("|%15s|%15d|\n", "", b_iter->raw);
 			b_iter = b_iter->next;
 		}
 		else if (i >= max - na && i >= max - nb)
@@ -69,7 +71,32 @@ void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b)
 			a_iter = a_iter->next;
 			b_iter = b_iter->next;
 		}
+		i++;
 	}
-	printf("|a:%11dea|b:%11dea|\n", a->n_node, b->n_node);
+	printf("|a:%11dea|b:%11dea|\n", na, nb);
 
 }
+
+// ps_sa(a, ops);
+// pstest_print_decks(a, b);
+// ps_pb(a, b, ops);
+// pstest_print_decks(a, b);
+// ps_pb(a, b, ops);
+// pstest_print_decks(a, b);
+// ps_pb(a, b, ops);
+// pstest_print_decks(a, b);
+// ps_sb(b, ops);
+// pstest_print_decks(a, b);
+// ps_ra(a, ops);
+// pstest_print_decks(a, b);
+// ps_rb(b, ops);
+// pstest_print_decks(a, b);
+// ps_rr(a, b, ops);
+// pstest_print_decks(a, b);
+// ps_rra(a, ops);
+// pstest_print_decks(a, b);
+// ps_rrb(b, ops);
+// pstest_print_decks(a, b);
+// ps_rrr(a, b, ops);
+// pstest_print_decks(a, b);
+// ps_pa(a, b, ops);

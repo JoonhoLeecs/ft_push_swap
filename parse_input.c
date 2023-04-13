@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:43:16 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/11 19:39:30 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:09:24 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ static int	valid_check(int argc, char **argv)
 	j = 0;
 	while (i < argc)
 	{
+		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] != ' ' && (argv[i][j] < '0' && argv[i][j] > '9')
-				&& argv[i][j] != '-' && argv[i][j] != '+')
+			if (!(argv[i][j] == ' ' || (argv[i][j] >= '0' && argv[i][j] <= '9')
+				|| argv[i][j] == '-' || argv[i][j] == '+'))
 				return (-1);
 			j++;
 		}
