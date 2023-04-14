@@ -2,7 +2,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 DIR_LIBFT = ./libft/
 LIBFT = libft.a
-SRC = parse_input.c \
+SRC = assign_subs.c \
+		divide_subs.c \
+		parse_input.c \
 		ps_deck_add.c \
 		ps_deck_remove.c \
 		ps_deck.c \
@@ -13,12 +15,14 @@ SRC = parse_input.c \
 		ps_rrr.c \
 		ps_sort_record.c \
 		ps_ss.c \
+		ps_sub_ops.c \
+		ps_subseq.c \
+		ps_subseq2.c \
 		push_swap.c \
-		strs_to_deck.c \
+		merge_all.c \
 		sort_small.c \
 		sort_small2.c \
-		ps_subseq.c \
-		assign_runs.c
+		strs_to_deck.c
 
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap

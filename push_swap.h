@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 18:01:05 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 07:24:28 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,18 @@ int			sort_two_b(t_ps_deck *b, t_ops_deck *ops);
 int			sort_three_a(t_ps_deck *a, t_ops_deck *ops);
 int			sort_three_b(t_ps_deck *b, t_ops_deck *ops);
 int			sort_four(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			smerge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			sort_five(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
 int			assign_subs(t_ps_deck *a);
 
 int			divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			calc_divide(t_ps_deck *a);
 int			ps_reverse_ra(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+
+int			merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_a_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+void		submerge_b_to_a(t_ps_deck *a, t_ps_deck *b);
 
 int			ps_sub_ra(t_ps_deck *a, t_ops_deck *ops);
 int			ps_sub_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
@@ -124,9 +128,10 @@ void		sub_add_top(t_ps_deck *a, t_ps_subseq *sub);
 void		sub_add_bottom(t_ps_deck *a, t_ps_subseq *sub);
 t_ps_subseq	*sub_remove_top(t_ps_deck *deck);
 t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck);
+void		clear_sub(t_ps_subseq *a);
 
 // the following functions are temporary to check variables in process
 void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
-void	pstest_print_decks_subs(t_ps_deck *a, t_ps_deck *b);
+void	pstest_print_subs(t_ps_deck *a, t_ps_deck *b);
 
 #endif

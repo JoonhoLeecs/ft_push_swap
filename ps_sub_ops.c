@@ -6,21 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:22 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 17:51:23 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 08:47:56 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// check += ps_sub_ra(a, ops);
-// else if (a->top_sub->divide == 0 && a->top_sub->sub_ind < 0)
-// 	check += ps_sub_sa(a, b, ops);
-// else if (a->top_sub->divide == 1 && a->top_sub->sub_ind < 0)
-// 	check += ps_sub_pb(a, b, ops);
-// else check += ps_sub_pbrb(a, b, ops);
-// }
-// if (a->n_subseq == 1 && a->top_sub->sub_ind < 0 && check == 0)
-// 	check += ps_sub_sa(a, b, ops);
-
 #include "push_swap.h"
+
+// #include <stdio.h>
 
 int	ps_sub_ra(t_ps_deck *a, t_ops_deck *ops)
 {
@@ -75,7 +67,6 @@ int	ps_sub_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 int	ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
 	t_ps_subseq	*top;
-	t_ps_node	*tmp;
 	int			check;
 	int			count;
 	int			n_node;
@@ -87,11 +78,17 @@ int	ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	n_node = a->top_sub->n_node;
 	while (count < n_node && check == 0)
 	{
+		// printf("ps_sub_ops.c|ps_sub_pbrb in the while\n");
+		// pstest_print_decks(a, b);
+		// pstest_print_subs(a, b);
 		check += ps_pb(a, b, ops);
-		if (check == 0)
+		if (check == 0 && b->n_node > 1)
 			check += ps_rb(b, ops);
 		count++;
 	}
+	// printf("ps_sub_ops.c|ps_sub_pbrb after while\n");
+	// pstest_print_decks(a, b);
+	// pstest_print_subs(a, b);
 	if (check == 0)
 	{
 		top = sub_remove_top(a);
@@ -103,7 +100,6 @@ int	ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 int	ps_sub_para(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
 	t_ps_subseq	*top;
-	t_ps_node	*tmp;
 	int			check;
 	int			count;
 	int			n_node;
@@ -125,5 +121,17 @@ int	ps_sub_para(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 		top = sub_remove_top(b);
 		sub_add_bottom(a, top);
 	}
+	return (check);
+}
+
+int	ps_reverse_ra(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+{
+	int	check;
+
+	if (a->n_subseq == 0)
+		return (1);
+	check = ps_sub_pb(a, b, ops);
+	if (check == 0)
+		check += ps_sub_para(a, b, ops);
 	return (check);
 }

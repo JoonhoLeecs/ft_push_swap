@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:51:54 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 17:40:53 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 07:43:03 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ t_ps_subseq	*sub_remove_top(t_ps_deck *deck)
 
 	if (deck == 0 || deck->top_sub == 0)
 		return (0);
-	top_to_remove = deck->top_sub;
 	deck->n_subseq -= 1;
+	top_to_remove = deck->top_sub;
 	deck->top_sub = top_to_remove->next_sub;
 	if (deck->top_sub != 0)
 		deck->top_sub->prev_sub = 0;
@@ -92,8 +92,8 @@ t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck)
 
 	if (deck == 0 || deck->bottom_sub == 0)
 		return (0);
-	bottom_to_remove = deck->bottom_sub;
 	deck->n_subseq -= 1;
+	bottom_to_remove = deck->bottom_sub;
 	deck->bottom_sub = bottom_to_remove->prev_sub;
 	if (deck->bottom_sub != 0)
 		deck->bottom_sub->next_sub = 0;

@@ -6,11 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:14:30 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 14:46:05 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 08:48:36 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+#include <stdio.h>
 
 t_ops_deck	*ps_sort_record(t_ps_deck *a, t_ps_deck *b)
 {
@@ -25,10 +27,18 @@ t_ops_deck	*ps_sort_record(t_ps_deck *a, t_ps_deck *b)
 		check += sort_small(a, b, ops) * 2 - 1;
 	if (check == 0)
 		check += assign_subs(a);
+	printf("sort_record.c|after assign_subs\n");
+	pstest_print_decks(a, b);
+	pstest_print_subs(a, b);
+
 	if (check == 0)
 		check += divide_subs(a, b, ops);
-	// if (check == 0)
-	// 	check += repeat_merge(a, b, ops);
+	printf("sort_record.c|after divide_subs\n");
+	pstest_print_decks(a, b);
+	pstest_print_subs(a, b);
+	printf("check:%d", check);
+	if (check == 0)
+		check += merge_all(a, b, ops);
 	// if (check == 0)
 	// 	check += make_shorter(ops);
 	if (check > 0)

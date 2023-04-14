@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:17:00 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 11:51:24 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/13 21:47:39 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	sort_four(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	if (check == 0)
 		check += sort_three_a(a, ops);
 	if (check == 0)
-		check += merge_b_to_a(a, b, ops);
+		check += smerge_b_to_a(a, b, ops);
 	return (check);
 }
 
-int	merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	smerge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
 	int	check;
 	int	max;
@@ -62,7 +62,7 @@ int	sort_five(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	if (check == 0)
 	{
 		if (is_ordered(a) == 1)
-			return (merge_b_to_a(a, b, ops));
+			return (smerge_b_to_a(a, b, ops));
 		check += ps_pb(a, b, ops);
 	}
 	if (check == 0)
@@ -70,6 +70,6 @@ int	sort_five(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	if (check == 0)
 		check += sort_two_b(b, ops);
 	if (check == 0)
-		check += merge_b_to_a(a, b, ops);
+		check += smerge_b_to_a(a, b, ops);
 	return (check);
 }
