@@ -4,25 +4,26 @@ DIR_LIBFT = ./libft/
 LIBFT = libft.a
 SRC = assign_subs.c \
 		divide_subs.c \
+		merge_all.c \
 		parse_input.c \
-		ps_deck_add.c \
-		ps_deck_remove.c \
 		ps_deck.c \
-		ps_ops_add.c \
+		ps_deck2.c \
 		ps_ops.c \
+		ps_ops2.c \
 		ps_papb.c \
 		ps_rr.c \
 		ps_rrr.c \
-		ps_sort_record.c \
 		ps_ss.c \
 		ps_sub_ops.c \
 		ps_subseq.c \
 		ps_subseq2.c \
 		push_swap.c \
-		merge_all.c \
+		refine_subs.c \
+		sort_record.c \
 		sort_small.c \
 		sort_small2.c \
 		strs_to_deck.c
+# refine_ops.c
 
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap

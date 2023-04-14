@@ -6,14 +6,12 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:24:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/11 19:31:49 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 10:05:30 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <limits.h>
-
-static t_ps_deck	*free_nbrs_deck(char **nbrs, t_ps_deck *a);
 
 t_ps_deck	*strs_to_deck(char **nbrs)
 {
@@ -34,7 +32,7 @@ t_ps_deck	*strs_to_deck(char **nbrs)
 		if (check < 0)
 			return (free_nbrs_deck(nbrs, a));
 		new_node = ps_new_node(raw);
-		if (new_node == 0 || check < 0)
+		if (new_node == 0)
 			return (free_nbrs_deck(nbrs, a));
 		ps_add_bottom(a, new_node);
 		i++;
@@ -42,7 +40,7 @@ t_ps_deck	*strs_to_deck(char **nbrs)
 	return (a);
 }
 
-static t_ps_deck	*free_nbrs_deck(char **nbrs, t_ps_deck *a)
+t_ps_deck	*free_nbrs_deck(char **nbrs, t_ps_deck *a)
 {
 	int	i;
 

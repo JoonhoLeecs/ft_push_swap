@@ -6,13 +6,12 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:26:48 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/13 17:31:13 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:04:55 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_next_inc_dec(t_ps_node *a);
 t_ps_subseq	*as_next(t_ps_node **top, t_ps_node **bottom, int *inc, int *dec);
 
 int	assign_subs(t_ps_deck *a)
@@ -68,7 +67,7 @@ t_ps_subseq	*as_next(t_ps_node **top, t_ps_node **bottom, int *inc, int *dec)
 		return (sub_new(*top, *bottom, 1, ++(*inc)));
 }
 
-static int	find_next_inc_dec(t_ps_node *a)
+int	find_next_inc_dec(t_ps_node *a)
 {
 	if (a->next == 0)
 		return (0);

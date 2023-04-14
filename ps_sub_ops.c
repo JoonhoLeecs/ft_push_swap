@@ -6,13 +6,11 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:22 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 08:47:56 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:11:08 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// #include <stdio.h>
 
 int	ps_sub_ra(t_ps_deck *a, t_ops_deck *ops)
 {
@@ -78,17 +76,12 @@ int	ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	n_node = a->top_sub->n_node;
 	while (count < n_node && check == 0)
 	{
-		// printf("ps_sub_ops.c|ps_sub_pbrb in the while\n");
-		// pstest_print_decks(a, b);
-		// pstest_print_subs(a, b);
+
 		check += ps_pb(a, b, ops);
 		if (check == 0 && b->n_node > 1)
 			check += ps_rb(b, ops);
 		count++;
 	}
-	// printf("ps_sub_ops.c|ps_sub_pbrb after while\n");
-	// pstest_print_decks(a, b);
-	// pstest_print_subs(a, b);
 	if (check == 0)
 	{
 		top = sub_remove_top(a);
@@ -124,12 +117,28 @@ int	ps_sub_para(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	ps_reverse_ra(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	ps_sub_sa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	int	check;
+	int			check;
+	t_ps_node	*tmp;
 
-	if (a->n_subseq == 0)
-		return (1);
+	if (a->top_sub->n_node == 2)
+	{
+		check = sort_two_a(a, ops);
+		tmp = a->top_sub->top;
+		a->top_sub->top = a->top_sub->bottom;
+		a->top_sub->bottom = tmp;
+		return (check);
+	}
+	else if (a->top_sub->n_node == 3)
+	{
+		check = ps_sa(a, ops) + ps_ra(a, ops)
+			+ ps_sa(a, ops) + ps_rra(a, ops) + ps_sa(a, ops);
+		tmp = a->top_sub->top;
+		a->top_sub->top = a->top_sub->bottom;
+		a->top_sub->bottom = tmp;
+		return (check);
+	}
 	check = ps_sub_pb(a, b, ops);
 	if (check == 0)
 		check += ps_sub_para(a, b, ops);
