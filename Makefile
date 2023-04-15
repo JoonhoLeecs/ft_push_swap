@@ -4,6 +4,7 @@ DIR_LIBFT = ./libft/
 LIBFT = libft.a
 SRC = assign_subs.c \
 		divide_subs.c \
+		divide_subs2.c \
 		merge_all.c \
 		parse_input.c \
 		ps_deck.c \

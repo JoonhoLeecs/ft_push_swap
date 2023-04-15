@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:33:05 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 15:32:35 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:58:22 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	refine_ops(t_ops_deck *ops)
 		return ;
 	combine_to_rr(ops);
 	combine_to_rrr(ops);
-	// printf("3==========");
-	// combine_to_ss(ops);
+	combine_to_ss(ops);
 }
 
 void	combine_to_rr(t_ops_deck *ops)

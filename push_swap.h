@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 14:59:15 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:13:31 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ int			calc_divide(t_ps_deck *a);
 void		adjust_to_a(t_ps_deck *a, int *n_b_node, int *n_b_sub);
 void		adjust_to_b(t_ps_deck *a, int *n_b_node, int *n_b_sub);
 int			find_sub_to_move(t_ps_deck *a, t_ps_deck *b, int nf_b_node);
+int			ds_better_rasa(t_ps_deck *a, t_ops_deck *ops);
+int			ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+void		submerge_rasa(t_ps_deck *a);
+void		submerge_pbsa(t_ps_deck *a, t_ps_deck *b);
 
 void		refine_subs(t_ps_deck *a, t_ps_deck *b);
 void		refine_sub(t_ps_deck *a);

@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:35:16 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 15:42:08 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:59:36 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,21 @@ void	combine_to_ss(t_ops_deck *ops)
 	top = ops->head;
 	while (top)
 	{
-		if (is_op(top, "sa\n") == 0 && is_op(top, "sb\n") == 0)
+		if ((is_op(top, "sa\n") == 0 && is_op(top, "sb\n") == 0)
+			|| top->next == 0)
 			top = top->next;
-		else if (top && top->next)
+		else
 		{
 			ra_count = is_op(top, "sa\n") + is_op(top->next, "sa\n");
 			rb_count = is_op(top, "sb\n") + is_op(top->next, "sb\n");
 			bottom = top->next->next;
-			if (bottom && bottom->next)
+			if (ra_count == 1 && rb_count == 1)
+			{
 				replace_to_ss(top, bottom, ra_count, rb_count);
-			top = bottom;
+				top = bottom;
+			}
+			else
+				top = top->next;
 		}
 	}
 }
