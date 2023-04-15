@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 16:34:23 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:16:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	calc_divide(t_ps_deck *a)
 		}
 		sub_iter = sub_iter->next_sub;
 	}
-	if (7 * a->n_node < n_b_node * 10 && 7 * a->n_subseq < n_b_sub * 10)
+	if (n_b_sub == a->n_subseq)
 		adjust_to_a(a, &n_b_node, &n_b_sub);
-	else if (3 * a->n_node >= n_b_node * 10 && 3 * a->n_subseq > n_b_sub * 10)
+	else if (n_b_sub == 0)
 		adjust_to_b(a, &n_b_node, &n_b_sub);
 	return (n_b_node);
 }
@@ -72,7 +72,7 @@ void	adjust_to_a(t_ps_deck *a, int *n_b_node, int *n_b_sub)
 
 	sub_iter = a->top_sub;
 	target_size = 2;
-	while (7 * a->n_node < *n_b_node * 10 && 7 * a->n_subseq < *n_b_sub * 10)
+	while (*n_b_sub == a->n_subseq)
 	{
 		if (sub_iter->divide == 1 && sub_iter->n_node == target_size)
 		{
@@ -97,7 +97,7 @@ void	adjust_to_b(t_ps_deck *a, int *n_b_node, int *n_b_sub)
 
 	sub_iter = a->top_sub;
 	target_size = 1;
-	while (3 * a->n_node >= *n_b_node * 10 && 3 * a->n_subseq > *n_b_sub * 10)
+	while (*n_b_sub == 0)
 	{
 		if (sub_iter->divide == 0 && sub_iter->n_node == target_size)
 		{

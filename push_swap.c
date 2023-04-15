@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:38:56 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 13:42:48 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:01:06 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	pstest_print_subs(t_ps_deck *a, t_ps_deck *b)
 		i++;
 	}
 	printf("|a ind|    n|  div|%10s|%10s|b ind|    n|  div|%10s|%10s\n", "top", "bottom", "top", "bottom");
+	printf("|a:%11dea|a:%5dsub|b:%11dea|b:%5dsub|\n", a->n_node, a->n_subseq, b->n_node, b->n_subseq);
 }
 // ps_sa(a, ops);
 // pstest_print_decks(a, b);

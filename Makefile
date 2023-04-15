@@ -22,8 +22,10 @@ SRC = assign_subs.c \
 		sort_record.c \
 		sort_small.c \
 		sort_small2.c \
-		strs_to_deck.c
-# refine_ops.c
+		strs_to_deck.c \
+		refine_ops.c \
+		refine_ops2.c \
+		ft_strcmp.c
 
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap

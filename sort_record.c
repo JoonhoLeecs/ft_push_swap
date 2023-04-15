@@ -6,12 +6,11 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:14:30 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 13:52:09 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:55:51 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 t_ops_deck	*sort_record(t_ps_deck *a, t_ps_deck *b)
 {
@@ -30,8 +29,8 @@ t_ops_deck	*sort_record(t_ps_deck *a, t_ps_deck *b)
 		check += divide_subs(a, b, ops);
 	if (check == 0)
 		check += merge_all(a, b, ops);
-	// if (check == 0)
-	// 	check += refine_ops(ops);
+	if (check == 0)
+		refine_ops(ops);
 	if (check > 0)
 		ops = ops_clear_deck(ops);
 	return (ops);
