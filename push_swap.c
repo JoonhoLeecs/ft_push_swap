@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:38:56 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 09:02:31 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:27:27 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	ops = sort_record(a, b);
+	// pstest_print_subs(a, b, ops);
+
 	if (ops != 0)
 		ps_print_ops(ops);
 	clear_all(a, b, ops);
@@ -84,7 +86,7 @@ void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b)
 	printf("|a:%11dea|a:%5dsub|b:%11dea|b:%5dsub|\n", na, a->n_subseq, nb, b->n_subseq);
 }
 
-void	pstest_print_subs(t_ps_deck *a, t_ps_deck *b)
+void	pstest_print_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
 	int i;
 	int na;
@@ -127,6 +129,24 @@ void	pstest_print_subs(t_ps_deck *a, t_ps_deck *b)
 	}
 	printf("|a ind|    n|  div|%10s|%10s|b ind|    n|  div|%10s|%10s\n", "top", "bottom", "top", "bottom");
 	printf("|a:%11dea|a:%5dsub|b:%11dea|b:%5dsub|\n", a->n_node, a->n_subseq, b->n_node, b->n_subseq);
+	printf("n_ops is %d\n", n_ops(ops));
+}
+
+int	n_ops(t_ops_deck *ops)
+{
+	int	i;
+	t_op_node *op_iter;
+
+	if (ops->head == 0)
+		return (0);
+	op_iter = ops->head;
+	i = 0;
+	while (op_iter)
+	{
+		i++;
+		op_iter = op_iter->next;
+	}
+	return (i);
 }
 // ps_sa(a, ops);
 // pstest_print_decks(a, b);

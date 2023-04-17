@@ -7,6 +7,7 @@ SRC = assign_subs.c \
 		divide_subs2.c \
 		merge_all.c \
 		merge_all2.c \
+		merge_all3.c \
 		parse_input.c \
 		ps_deck.c \
 		ps_deck2.c \
@@ -17,6 +18,7 @@ SRC = assign_subs.c \
 		ps_rrr.c \
 		ps_ss.c \
 		ps_sub_ops.c \
+		ps_sub_ops2.c \
 		ps_subseq.c \
 		ps_subseq2.c \
 		push_swap.c \

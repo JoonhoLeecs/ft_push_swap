@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 09:07:50 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 20:07:56 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int			ds_better_rasa(t_ps_deck *a, t_ops_deck *ops);
 int			ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 void		submerge_rasa(t_ps_deck *a);
 void		submerge_pbsa(t_ps_deck *a, t_ps_deck *b);
+void		submerge_two_bottoms(t_ps_deck *a);
+// void		submerge_pbrb(t_ps_deck *b);
 
 void		refine_subs(t_ps_deck *a, t_ps_deck *b);
 void		refine_sub(t_ps_deck *a);
@@ -105,6 +107,13 @@ void		submerge_b_to_a(t_ps_deck *a, t_ps_deck *b);
 int			double_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_a_tops(t_ps_deck *a, t_ops_deck *ops);
+int			merge_b_tops(t_ps_deck *b, t_ops_deck *ops);
+int			check_a_tops(t_ps_deck *a, t_ps_deck *b);
+int			count_first(t_ps_subseq *sub, t_ps_deck *a);
+int			split_top_sub(t_ps_deck *a);
+int			tw_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			tw_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
 void		refine_ops(t_ops_deck *ops);
 int			is_op(t_op_node *op_node, char *op);
@@ -121,6 +130,7 @@ void		clear_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
 int			ps_sub_sa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_ra(t_ps_deck *a, t_ops_deck *ops);
+int			ps_sub_rb(t_ps_deck *a, t_ops_deck *ops);
 int			ps_sub_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_para(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
@@ -164,6 +174,7 @@ void		clear_sub(t_ps_subseq *a);
 
 // the following functions are temporary to check variables in process
 void		pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
-void		pstest_print_subs(t_ps_deck *a, t_ps_deck *b);
+void		pstest_print_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			n_ops(t_ops_deck *ops);
 
 #endif
