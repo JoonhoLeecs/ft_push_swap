@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:38:56 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 18:01:06 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 09:02:31 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,22 @@ int	main(int argc, char **argv)
 		return (1);
 	b = ps_new_deck();
 	if (b == 0)
-		exit (1);
+	{
+		clear_all(a, 0, 0);
+		return (1);
+	}
 	ops = sort_record(a, b);
 	if (ops != 0)
 		ps_print_ops(ops);
-	// clear_all(a, b, ops);
+	clear_all(a, b, ops);
 	return (0);
+}
+
+void	clear_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+{
+	ps_clear_deck(a);
+	ps_clear_deck(b);
+	ops_clear_deck(ops);
 }
 
 // the following functions are temporary to check variables in process

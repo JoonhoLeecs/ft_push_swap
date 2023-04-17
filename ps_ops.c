@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:33:38 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 15:32:22 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 08:51:56 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_ops_deck	*ops_clear_deck(t_ops_deck *ops_deck)
 	t_op_node	*node_iter;
 	t_op_node	*node_to_clear;
 
+	if (ops_deck == 0)
+		return (0);
 	node_iter = ops_deck->head;
 	while (node_iter)
 	{

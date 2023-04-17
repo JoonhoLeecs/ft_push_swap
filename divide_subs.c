@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 19:25:33 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 08:30:24 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ int	divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 		return (ps_sub_sa(a, b, ops));
 	check = 0;
 	nf_b_node = calc_divide(a);
-	// printf("divide_sub.c|before while\n");
-	// pstest_print_decks(a, b);
-	// pstest_print_subs(a, b);
 	while ((find_sub_to_move(a, b, nf_b_node)) && check == 0)
 	{
 		if (a->top_sub->divide == 0 && find_next_inc_dec(a->top) > 0)
@@ -36,9 +33,6 @@ int	divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 			check += ds_better_pbsa(a, b, ops);
 		else
 			check += ps_sub_pbrb(a, b, ops);
-		// printf("divide_sub.c|after each while\n");
-		// pstest_print_decks(a, b);
-		// pstest_print_subs(a, b);
 	}
 	if (check == 0)
 		refine_subs(a, b);

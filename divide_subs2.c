@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 16:45:42 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 19:26:31 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 09:07:27 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ int	ds_better_rasa(t_ps_deck *a, t_ops_deck *ops)
 
 	top_sub = a->top_sub;
 	next_sub = top_sub->next_sub;
-	if (next_sub->divide == 1 || top_sub->n_node > 2 || next_sub->n_node > 3
-		|| top_sub->bottom->raw < next_sub->top->raw
-		|| top_sub->top->raw > next_sub->top->raw)
+	if (next_sub->divide == 1 || top_sub->top->raw > next_sub->top->raw
+		|| top_sub->n_node > 2 || top_sub->bottom->raw < next_sub->top->raw)
 		return (ps_sub_ra(a, ops));
 	check = 0;
-	count = 0;
-	while (count < top_sub->n_node + next_sub->n_node && check == 0)
+	count = top_sub->n_node + next_sub->n_node;
+	while (0 < count && check == 0)
 	{
-		if (find_next_inc_dec(a->top) < 0 && count < top_sub->n_node + next_sub->n_node - 1)
+		if (find_next_inc_dec(a->top) < 0 && 1 < count--)
 		{
 			check = ps_sa(a, ops);
 			if (check == 0)
@@ -37,7 +36,6 @@ int	ds_better_rasa(t_ps_deck *a, t_ops_deck *ops)
 		}
 		else
 			check = ps_ra(a, ops);
-		count++;
 	}
 	submerge_rasa(a);
 	return (check);
@@ -52,15 +50,14 @@ int	ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 
 	top_sub = a->top_sub;
 	next_sub = top_sub->next_sub;
-	if (next_sub->divide == 0 || top_sub->n_node > 2 || next_sub->n_node > 3
-		|| top_sub->bottom->raw > next_sub->top->raw
-		|| top_sub->top->raw < next_sub->top->raw)
+	if (next_sub->divide == 0 || top_sub->bottom->raw > next_sub->top->raw
+		|| top_sub->n_node > 2 || top_sub->top->raw < next_sub->top->raw)
 		return (ps_sub_pb(a, b, ops));
 	check = 0;
-	count = 0;
-	while (count < top_sub->n_node + next_sub->n_node && check == 0)
+	count = top_sub->n_node + next_sub->n_node;
+	while (0 < count && check == 0)
 	{
-		if (find_next_inc_dec(a->top) > 0 && count < top_sub->n_node + next_sub->n_node - 1)
+		if (find_next_inc_dec(a->top) > 0 && 1 < count--)
 		{
 			check = ps_sa(a, ops);
 			if (check == 0)
@@ -68,7 +65,6 @@ int	ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 		}
 		else
 			check = ps_pb(a, b, ops);
-		count++;
 	}
 	submerge_pbsa(a, b);
 	return (check);

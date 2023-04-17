@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:18 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 09:53:48 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 08:52:16 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ps_clear_deck(t_ps_deck *deck)
 	t_ps_node	*node_iter;
 	t_ps_node	*node_to_clear;
 
+	if (deck == 0)
+		return ;
 	node_iter = deck->top;
 	while (node_iter)
 	{

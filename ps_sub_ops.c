@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:22 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 16:11:08 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 09:08:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	n_node = a->top_sub->n_node;
 	while (count < n_node && check == 0)
 	{
-
 		check += ps_pb(a, b, ops);
 		if (check == 0 && b->n_node > 1)
 			check += ps_rb(b, ops);

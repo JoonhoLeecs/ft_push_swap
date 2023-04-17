@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 19:13:31 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 09:07:50 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ int			merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			merge_a_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 void		submerge_b_to_a(t_ps_deck *a, t_ps_deck *b);
+int			double_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
 void		refine_ops(t_ops_deck *ops);
 int			is_op(t_op_node *op_node, char *op);
@@ -113,6 +116,8 @@ void		combine_to_ss(t_ops_deck *ops);
 void		replace_to_ss(t_op_node *top, t_op_node *bottom, int ra, int rb);
 t_op_node	*overwrite_n_op(t_op_node *start, char *op_str, int n);
 int			ft_strcmp(char *s1, char *s2);
+
+void		clear_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
 int			ps_sub_sa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_ra(t_ps_deck *a, t_ops_deck *ops);
@@ -158,7 +163,7 @@ t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck);
 void		clear_sub(t_ps_subseq *a);
 
 // the following functions are temporary to check variables in process
-void	pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
-void	pstest_print_subs(t_ps_deck *a, t_ps_deck *b);
+void		pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
+void		pstest_print_subs(t_ps_deck *a, t_ps_deck *b);
 
 #endif

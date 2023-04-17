@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:05:41 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 18:01:20 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/17 08:29:55 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ int	merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	check = 0;
 	if (a->n_subseq == 1 && b->n_subseq == 1)
 		return (fmerge_b_to_a(a, b, ops));
-	while (a->n_subseq < b->n_subseq && b->n_subseq > 1 && check == 0)
-		check += merge_b_to_a(a, b, ops);
-	while (a->n_subseq > b->n_subseq && a->n_subseq > 1 && check == 0)
-		check += merge_a_to_b(a, b, ops);
+	while (a->n_subseq < b->n_subseq && check == 0)
+		check += better_merge_ba(a, b, ops);
+	while (a->n_subseq > b->n_subseq && check == 0)
+		check += better_merge_ab(a, b, ops);
 	while (a->n_subseq == b->n_subseq && a->n_subseq > 1 && check == 0)
 	{
-		check += merge_b_to_a(a, b, ops);
-		if (check == 0)
-			check += merge_a_to_b(a, b, ops);
+		check += double_merge(a, b, ops);
 	}
 	if (check != 0)
 		return (check);
@@ -113,5 +111,26 @@ int	merge_a_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	}
 	if (check == 0)
 		submerge_b_to_a(b, a);
+	return (check);
+}
+
+int	double_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+{
+	int	check;
+
+	check = 0;
+	if (a->top_sub->n_node + b->top_sub->next_sub->n_node
+		> a->top_sub->next_sub->n_node + b->top_sub->n_node)
+	{
+		check += merge_b_to_a(a, b, ops);
+		if (check == 0)
+			check += merge_a_to_b(a, b, ops);
+	}
+	else
+	{
+		check += merge_a_to_b(a, b, ops);
+		if (check == 0)
+			check += merge_b_to_a(a, b, ops);
+	}
 	return (check);
 }
