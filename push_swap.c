@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:38:56 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 22:27:27 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:13:01 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int	n_ops(t_ops_deck *ops)
 	int	i;
 	t_op_node *op_iter;
 
+	if (ops == 0)
+		return (0);
 	if (ops->head == 0)
 		return (0);
 	op_iter = ops->head;

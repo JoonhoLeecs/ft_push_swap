@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 20:07:56 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:56:25 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,14 @@ int			count_first(t_ps_subseq *sub, t_ps_deck *a);
 int			split_top_sub(t_ps_deck *a);
 int			tw_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			tw_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+
+int			get_greatest_power_two(int n);
+int get_exponent(int n);
+void gpt_divide(t_ps_deck *a, t_ps_deck *b);
+void gpt_divide_reset(t_ps_deck *a, t_ps_deck *b);
+void find_divide(int i, t_ps_deck *a, t_ps_deck *b);
+void find_min_update(int i, t_ps_deck *a, t_ps_deck *b);
+int gpt_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
 void		refine_ops(t_ops_deck *ops);
 int			is_op(t_op_node *op_node, char *op);
