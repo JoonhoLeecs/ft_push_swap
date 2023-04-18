@@ -5,6 +5,7 @@ LIBFT = libft.a
 SRC = assign_subs.c \
 		divide_subs.c \
 		divide_subs2.c \
+		divide_subs3.c \
 		merge_all.c \
 		merge_all2.c \
 		merge_all3.c \

@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 09:08:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 16:41:11 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:33:07 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ void	gpt_divide(t_ps_deck *a, t_ps_deck *b)
 		i = k;
 		while (i >= 0)
 		{
-			// printf("gpt_divide|e=%d|k=%d|i=%d\n", e, k, i);
 			find_divide(i, a, b);
 			i--;
-			// pstest_print_subs(a, b, 0);
 		}
 		k++;
 	}
@@ -106,7 +104,6 @@ void	find_divide(int i, t_ps_deck *a, t_ps_deck *b)
 	j = 0;
 	while (j < n_pair / 2)
 	{
-		// printf("find_divide|i=%d|n_pair=%d|j=%d\n", i, n_pair, j);
 		find_min_update(i, a, b);
 		j++;
 	}
@@ -120,28 +117,26 @@ void	find_min_update(int i, t_ps_deck *a, t_ps_deck *b)
 	t_ps_subseq	*min_a_sub;
 	t_ps_subseq	*min_b_sub;
 
-
 	a_sub = a->top_sub;
 	b_sub = b->top_sub;
 	min = -1;
 	while (a_sub)
 	{
 		if (i % 2 == 0 && a_sub->divide == i && b_sub->divide == i + 1
-			&& (min < 0 || a_sub->n_node < min))
+			&& (min < 0 || count_first(a_sub, a) < min))
 		{
-			min = a_sub->n_node;
+			min = count_first(a_sub, a);
 			min_a_sub = a_sub;
 		}
 		if (i % 2 == 1 && a_sub->divide == i + 1 && b_sub->divide == i
-			&& (min < 0 || b_sub->n_node < min))
+			&& (min < 0 || count_first(b_sub, b) < min))
 		{
-			min = b_sub->n_node;
+			min = count_first(b_sub, b);
 			min_b_sub = b_sub;
 		}
 		a_sub = a_sub->next_sub;
 		b_sub = b_sub->next_sub;
 	}
-	// printf("find_min_update|i=%d|min=%d\n", i, min);
 	if (i % 2 == 0)
 		min_a_sub->divide = i + 2;
 	if (i % 2 == 1)
@@ -154,6 +149,9 @@ int	gpt_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	int			count;
 	int			misalign;
 
+	gpt_divide(a, b);
+	// printf("before gpt_merge\n");
+	// pstest_print_subs(a, b, ops);
 	count = a->n_subseq;
 	check = 0;
 	misalign = 0;

@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 15:44:00 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:28:28 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,13 @@ int			divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			calc_divide(t_ps_deck *a);
 void		adjust_to_a(t_ps_deck *a, int *n_b_node, int *n_b_sub);
 void		adjust_to_b(t_ps_deck *a, int *n_b_node, int *n_b_sub);
-int			find_sub_to_move(t_ps_deck *a, t_ps_deck *b, int nf_b_node);
+int			find_sub_to_move(t_ps_deck *a, t_ps_deck *b, int nf_b_sub);
 int			ds_better_rasa(t_ps_deck *a, t_ops_deck *ops);
 int			ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 void		submerge_rasa(t_ps_deck *a);
 void		submerge_pbsa(t_ps_deck *a, t_ps_deck *b);
 void		submerge_two_bottoms(t_ps_deck *a);
+int			ds_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int *nf);
 // void		submerge_pbrb(t_ps_deck *b);
 
 void		refine_subs(t_ps_deck *a, t_ps_deck *b);

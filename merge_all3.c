@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:20:06 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 22:27:20 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:35:24 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	check_a_tops(t_ps_deck *a, t_ps_deck *b)
 	top_sub = a->top_sub;
 	next_sub = top_sub->next_sub;
 	if (top_sub->n_node <= 2 && top_sub->top->raw < next_sub->top->raw
-		&& b->top_sub->n_node + top_sub->n_node < next_sub->n_node * 2)
+		&& count_ba(b, a) > top_sub->n_node + next_sub->n_node
+		+ count_first_raw(next_sub, top_sub->bottom->raw))
 		return (1);
 	else
 		return (0);

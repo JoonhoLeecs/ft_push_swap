@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 19:56:18 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 17:04:14 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 08:05:23 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ int	better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 
 	top_sub = a->top_sub;
 	next_sub = top_sub->next_sub;
-	if (top_sub->n_node <= 2 && top_sub->top->raw < next_sub->top->raw
-		&& b->top_sub->n_node + top_sub->n_node < next_sub->n_node * 2)
+	if (check_a_tops(a, b))
 		return (merge_a_tops(a, ops));
 	check = 0;
 	// if (a->top_sub->n_node < b->top_sub->n_node || b->n_subseq == 1)
-	// if (count_ba(b, a) < count_ba(a, b) || b->n_subseq == get_greatest_power_two(b->n_subseq))
-	if (count_ba(b, a) < count_ba(a, b) || b->n_subseq == 1)
+	// if (count_ba(b, a) <= count_ba(a, b) || b->n_subseq == 1)
+	if (count_ba(b, a) <= count_ba(a, b) || b->n_subseq == get_greatest_power_two(b->n_subseq))
 	{
 		check += tw_merge_ab(a, b, ops);
 	}
@@ -64,13 +63,12 @@ int	better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 
 	top_sub = b->top_sub;
 	next_sub = top_sub->next_sub;
-	if (top_sub->n_node <= 2 && top_sub->top->raw < next_sub->top->raw
-		&& a->top_sub->n_node + top_sub->n_node > next_sub->n_node * 2)
+	if (check_a_tops(b, a))
 		return (merge_b_tops(b, ops));
 	check = 0;
 	// if (a->top_sub->n_node > b->top_sub->n_node || a->n_subseq == 1)
-	// if (count_ba(a, b) < count_ba(b, a) || a->n_subseq == get_greatest_power_two(a->n_subseq))
-	if (count_ba(a, b) < count_ba(b, a) || a->n_subseq == 1)
+	// if (count_ba(a, b) <= count_ba(b, a) || a->n_subseq == 1)
+	if (count_ba(a, b) <= count_ba(b, a) || a->n_subseq == get_greatest_power_two(a->n_subseq))
 	{
 		check += tw_merge_ba(a, b, ops);
 	}

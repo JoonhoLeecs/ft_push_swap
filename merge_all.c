@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:05:41 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 16:32:43 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:33:37 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 
 	// pstest_print_subs(a, b, ops);
 	check = 0;
-	if (a->n_subseq == b->n_subseq && check == 0 && a->n_subseq > 1
-		&& a->n_subseq == get_greatest_power_two(a->n_subseq))
-	{
-		gpt_divide(a, b);
+	// if (a->n_subseq == b->n_subseq && check == 0 && a->n_subseq > 1
+	// 	&& a->n_subseq == get_greatest_power_two(a->n_subseq))
+	// {
+	// 	gpt_divide(a, b);
 	// printf("after gpt_divide\n");
 	// pstest_print_subs(a, b, ops);
-	}
+	// }
 	// printf("after gpt_divide\n");
 	// pstest_print_subs(a, b, ops);
 	while (a->n_subseq == b->n_subseq && check == 0 && a->n_subseq > 1
