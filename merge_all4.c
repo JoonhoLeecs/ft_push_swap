@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 09:08:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 13:16:18 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:41:11 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int	gpt_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	misalign = 0;
 	if (a->n_subseq == 1)
 		return (fmerge_b_to_a(a, b, ops));
-	while (count > 0 && check == 0)
+	while (count > 0 && check == 0 && misalign == 0)
 	{
 		if (a->top_sub->divide > b->top_sub->divide)
 		{

@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 11:56:25 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:44:00 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ int			merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			merge_a_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 void		submerge_b_to_a(t_ps_deck *a, t_ps_deck *b);
 int			double_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int count_ba(t_ps_deck *a, t_ps_deck *b);
+int count_baab(t_ps_deck *a, t_ps_deck *b);
+int bottom_of_first(t_ps_subseq *sub, int raw);
+int count_first_raw(t_ps_subseq *sub, int raw);
+int max(int a, int b);
 int			better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			merge_a_tops(t_ps_deck *a, t_ops_deck *ops);

@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 19:56:18 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 13:25:03 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:04:14 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 		return (merge_a_tops(a, ops));
 	check = 0;
 	// if (a->top_sub->n_node < b->top_sub->n_node || b->n_subseq == 1)
-	if (count_first(top_sub, a) < count_first(b->top_sub, b) || b->n_subseq == 1)
+	// if (count_ba(b, a) < count_ba(a, b) || b->n_subseq == get_greatest_power_two(b->n_subseq))
+	if (count_ba(b, a) < count_ba(a, b) || b->n_subseq == 1)
 	{
 		check += tw_merge_ab(a, b, ops);
 	}
@@ -68,7 +69,8 @@ int	better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 		return (merge_b_tops(b, ops));
 	check = 0;
 	// if (a->top_sub->n_node > b->top_sub->n_node || a->n_subseq == 1)
-	if (count_first(a->top_sub, a) > count_first(top_sub, b) || a->n_subseq == 1)
+	// if (count_ba(a, b) < count_ba(b, a) || a->n_subseq == get_greatest_power_two(a->n_subseq))
+	if (count_ba(a, b) < count_ba(b, a) || a->n_subseq == 1)
 	{
 		check += tw_merge_ba(a, b, ops);
 	}
