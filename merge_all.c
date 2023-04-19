@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:05:41 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 09:11:06 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 16:59:52 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	int	check;
 
 	check = 0;
+	if (a->n_subseq == 1 && b->n_subseq == 0 && is_ordered(a))
+		return (0);
 	while (a->n_subseq == b->n_subseq && check == 0 && a->n_subseq > 1
 		&& a->n_subseq == get_greatest_power_two(a->n_subseq))
 		check += gpt_merge(a, b, ops);

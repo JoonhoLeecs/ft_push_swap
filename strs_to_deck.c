@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:24:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 10:58:59 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:33:10 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ps_atoi(const char *str, int *check)
 		sign = 44 - str[i++];
 	while (str[i] && *check >= 0)
 	{
-		if (!(str[i] >= '0' || str[i] <= '9'))
+		if (!(str[i] >= '0' && str[i] <= '9'))
 				*check = -1;
 		if (sign > 0 && ((nbr > INT_MAX / 10) || (nbr == INT_MAX / 10
 					&& str[i] - '0' > INT_MAX % 10)))

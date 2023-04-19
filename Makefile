@@ -48,8 +48,6 @@ all : $(NAME)
 $(NAME) : $(LIBFT) $(OBJECTS) $(HEADER)
 			$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -L. -lft
 
-# -g3 -fsanitize=address
-
 $(LIBFT) :
 	$(MAKE) bonus -C $(DIR_LIBFT)
 	cp $(DIR_LIBFT)/$(LIBFT) $(LIBFT)
