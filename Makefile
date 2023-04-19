@@ -10,6 +10,8 @@ SRC = assign_subs.c \
 		merge_all2.c \
 		merge_all3.c \
 		merge_all4.c \
+		merge_all5.c \
+		merge_all6.c \
 		parse_input.c \
 		ps_deck.c \
 		ps_deck2.c \
@@ -32,18 +34,18 @@ SRC = assign_subs.c \
 		refine_ops.c \
 		refine_ops2.c \
 		ft_strcmp.c
-
+HEADER = push_swap.h
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
 
 all : $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME) : $(LIBFT) $(OBJECTS)
+$(NAME) : $(LIBFT) $(OBJECTS) $(HEADER)
 			$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -L. -lft
 
 # -g3 -fsanitize=address

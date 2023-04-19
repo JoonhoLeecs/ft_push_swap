@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:51:54 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 17:33:58 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 12:44:00 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,3 @@ t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck)
 	bottom_to_remove->prev_sub = 0;
 	return (bottom_to_remove);
 }
-
-// #include <stdio.h>
-// void print_sub_info(t_ps_node *top, t_ps_node *bottom, int n, int ind)
-// {
-// 	printf("|top%d|bottom%d|n%d|ind%d|\n", top->raw, bottom->raw, n, ind);
-// }

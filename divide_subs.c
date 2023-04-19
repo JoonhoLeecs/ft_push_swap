@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 18:22:50 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 08:28:11 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	{
 		if (a->top_sub->divide == 0 && find_next_inc_dec(a->top) > 0)
 			check += ds_merge(a, b, ops, &nf_b_sub);
-			// check += ds_better_rasa(a, ops);
 		else if (a->top_sub->divide == 0 && find_next_inc_dec(a->top) < 0)
 			check += ps_sub_sa(a, b, ops);
 		else if (a->top_sub->divide == 1 && find_next_inc_dec(a->top) < 0)
@@ -120,8 +119,6 @@ int	find_sub_to_move(t_ps_deck *a, t_ps_deck *b, int nf_b_sub)
 {
 	t_ps_subseq	*sub_iter;
 
-	// if (b->n_subseq < nf_b_sub)
-	// 	return (1);
 	nf_b_sub = b->n_subseq;
 	sub_iter = a->top_sub;
 	while (sub_iter)

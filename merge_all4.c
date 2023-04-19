@@ -6,39 +6,39 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 09:08:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 21:33:07 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 09:57:26 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_greatest_power_two(int n)
+int	gpt_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	int	power;
+	int			check;
+	int			count;
+	int			misalign;
 
-	if (n < 1)
-		return (-1);
-	power = 1;
-	while (2 * power <= n)
-		power = power * 2;
-	return (power);
-}
-
-int	get_exponent(int n)
-{
-	int	power;
-	int	exponet;
-
-	if (n < 1)
-		return (-1);
-	power = 1;
-	exponet = 0;
-	while (2 * power <= n)
+	gpt_divide(a, b);
+	count = a->n_subseq;
+	check = 0;
+	misalign = 0;
+	while (count > 0 && check == 0 && misalign == 0)
 	{
-		power = power * 2;
-		exponet++;
+		if (a->top_sub->divide > b->top_sub->divide)
+		{
+			if (count_first(a->top_sub, a) == 0 || a->top->raw > b->bottom->raw)
+				misalign = 1;
+			check = tw_merge_ab(a, b, ops);
+		}
+		else
+		{
+			if (count_first(b->top_sub, b) == 0 || b->top->raw > a->bottom->raw)
+				misalign = 1;
+			check = tw_merge_ba(a, b, ops);
+		}
+		count--;
 	}
-	return (exponet);
+	return (check);
 }
 
 void	gpt_divide(t_ps_deck *a, t_ps_deck *b)
@@ -104,18 +104,16 @@ void	find_divide(int i, t_ps_deck *a, t_ps_deck *b)
 	j = 0;
 	while (j < n_pair / 2)
 	{
-		find_min_update(i, a, b);
+		find_min_update(i, a, b, 0);
 		j++;
 	}
 }
 
-void	find_min_update(int i, t_ps_deck *a, t_ps_deck *b)
+void	find_min_update(int i, t_ps_deck *a, t_ps_deck *b, int min)
 {
-	int			min;
 	t_ps_subseq	*a_sub;
 	t_ps_subseq	*b_sub;
-	t_ps_subseq	*min_a_sub;
-	t_ps_subseq	*min_b_sub;
+	t_ps_subseq	*min_sub;
 
 	a_sub = a->top_sub;
 	b_sub = b->top_sub;
@@ -126,75 +124,16 @@ void	find_min_update(int i, t_ps_deck *a, t_ps_deck *b)
 			&& (min < 0 || count_first(a_sub, a) < min))
 		{
 			min = count_first(a_sub, a);
-			min_a_sub = a_sub;
+			min_sub = a_sub;
 		}
 		if (i % 2 == 1 && a_sub->divide == i + 1 && b_sub->divide == i
 			&& (min < 0 || count_first(b_sub, b) < min))
 		{
 			min = count_first(b_sub, b);
-			min_b_sub = b_sub;
+			min_sub = b_sub;
 		}
 		a_sub = a_sub->next_sub;
 		b_sub = b_sub->next_sub;
 	}
-	if (i % 2 == 0)
-		min_a_sub->divide = i + 2;
-	if (i % 2 == 1)
-		min_b_sub->divide = i + 2;
+	min_sub->divide = i + 2;
 }
-
-int	gpt_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
-{
-	int			check;
-	int			count;
-	int			misalign;
-
-	gpt_divide(a, b);
-	// printf("before gpt_merge\n");
-	// pstest_print_subs(a, b, ops);
-	count = a->n_subseq;
-	check = 0;
-	misalign = 0;
-	if (a->n_subseq == 1)
-		return (fmerge_b_to_a(a, b, ops));
-	while (count > 0 && check == 0 && misalign == 0)
-	{
-		if (a->top_sub->divide > b->top_sub->divide)
-		{
-			if (count_first(a->top_sub, a) == 0 || a->top->raw > b->bottom->raw)
-				misalign = 1;
-			check = tw_merge_ab(a, b, ops);
-		}
-		else
-		{
-			if (count_first(b->top_sub, b) == 0 || b->top->raw > a->bottom->raw)
-				misalign = 1;
-			check = tw_merge_ba(a, b, ops);
-		}
-		count--;
-	}
-	return (check);
-}
-
-// void	double_divide(t_ps_deck *a, t_ps_deck *b)
-// {
-// 	int	gpt;
-// 	int	k;
-// 	int	i;
-
-// 	gpt_divide_reset(a, b);
-// 	gpt = get_greatest_power_two(a->n_subseq);
-// 	if (e == 0)
-// 		return ;
-// 	k = 0;
-// 	while (k < e)
-// 	{
-// 		i = k;
-// 		while (i >= 0)
-// 		{
-// 			find_divide(i, a, b);
-// 			i--;
-// 		}
-// 		k++;
-// 	}
-// }

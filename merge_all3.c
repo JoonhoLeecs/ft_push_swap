@@ -6,26 +6,11 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:20:06 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/18 20:35:24 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 08:56:25 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	check_a_tops(t_ps_deck *a, t_ps_deck *b)
-{
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
-
-	top_sub = a->top_sub;
-	next_sub = top_sub->next_sub;
-	if (top_sub->n_node <= 2 && top_sub->top->raw < next_sub->top->raw
-		&& count_ba(b, a) > top_sub->n_node + next_sub->n_node
-		+ count_first_raw(next_sub, top_sub->bottom->raw))
-		return (1);
-	else
-		return (0);
-}
 
 int	tw_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
@@ -38,14 +23,8 @@ int	tw_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	n_first = count_first(b->top_sub, b);
 	if (n_first < b->top_sub->n_node && 0 < n_first)
 	{
-		// printf("before split count_first:\n");
-		// pstest_print_decks(a, b);
-		// pstest_print_subs(a, b, ops);
 		check = split_top_sub(b);
 		second = 1;
-		// printf("after split\n");
-		// pstest_print_decks(a, b);
-		// pstest_print_subs(a, b, ops);
 	}
 	if (0 < n_first && b->top->raw > a->bottom->raw && check == 0)
 	{
@@ -73,14 +52,8 @@ int	tw_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	n_first = count_first(a->top_sub, a);
 	if (n_first < a->top_sub->n_node && 0 < n_first)
 	{
-	// printf("before split\n");
-	// pstest_print_decks(a, b);
-	// pstest_print_subs(a, b, ops);
 		check = split_top_sub(a);
 		second = 1;
-		// printf("after split\n");
-		// pstest_print_decks(a, b);
-		// pstest_print_subs(a, b, ops);
 	}
 	if (0 < n_first && a->top->raw > b->bottom->raw && check == 0)
 	{
@@ -89,9 +62,6 @@ int	tw_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	}
 	else if (0 < n_first && check == 0)
 		check += merge_a_to_b(a, b, ops);
-		// printf("after merge\n");
-		// pstest_print_decks(a, b);
-		// pstest_print_subs(a, b, ops);
 	if ((n_first == 0 || second != 0) && check == 0)
 	{
 		check += ps_sub_ra(a, ops);
@@ -144,7 +114,8 @@ int	split_top_sub(t_ps_deck *a)
 		node_iter = node_iter->next;
 		i++;
 	}
-	second = sub_new(node_iter->next, first->bottom, first->n_node - n_first, 0);
+	second = sub_new(node_iter->next, first->bottom,
+			first->n_node - n_first, 0);
 	if (second == 0)
 		return (1);
 	first->n_node = n_first;

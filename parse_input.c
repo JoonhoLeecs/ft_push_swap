@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:43:16 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 13:59:47 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 11:21:47 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ps_deck	*parse_input(int argc, char **argv)
 	a = strs_to_deck(nbrs);
 	if (a == 0)
 		return (error_parse_input());
-	if (have_duplicate(a) > 0)
+	if (a->n_node == 0 || have_duplicate(a) > 0)
 	{
 		free_nbrs_deck(nbrs, a);
 		return (error_parse_input());
@@ -42,19 +42,25 @@ static int	valid_check(int argc, char **argv)
 {
 	int	i;
 	int	j;
+	int	digit;
 
 	i = 1;
 	j = 0;
 	while (i < argc)
 	{
 		j = 0;
+		digit = 0;
 		while (argv[i][j])
 		{
 			if (!(argv[i][j] == ' ' || (argv[i][j] >= '0' && argv[i][j] <= '9')
 				|| argv[i][j] == '-' || argv[i][j] == '+'))
 				return (-1);
+			if (argv[i][j] >= '0' && argv[i][j] <= '9')
+				digit++;
 			j++;
 		}
+		if (digit == 0 || ft_strlen(argv[i]) == 0)
+			return (-1);
 		i++;
 	}
 	return (1);
@@ -105,6 +111,6 @@ static char	*ft_strjoin_all(int argc, char **argv, char sep)
 
 t_ps_deck	*error_parse_input(void)
 {
-	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd("Error\n", 2);
 	return (0);
 }

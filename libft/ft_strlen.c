@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:17:34 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/03/14 17:28:43 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 10:17:21 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (s == 0)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;

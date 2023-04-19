@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:24:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 10:05:30 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/19 10:58:59 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_ps_deck	*free_nbrs_deck(char **nbrs, t_ps_deck *a)
 		nbrs[i] = 0;
 		i++;
 	}
+	free(nbrs);
 	return (0);
 }
 
@@ -71,11 +72,13 @@ int	ps_atoi(const char *str, int *check)
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 		sign = 44 - str[i++];
-	while (str[i] >= '0' && str[i] <= '9' && *check >= 0)
+	while (str[i] && *check >= 0)
 	{
+		if (!(str[i] >= '0' || str[i] <= '9'))
+				*check = -1;
 		if (sign > 0 && ((nbr > INT_MAX / 10) || (nbr == INT_MAX / 10
 					&& str[i] - '0' > INT_MAX % 10)))
-			*check = -1;
+				*check = -1;
 		if (sign < 0 && ((nbr < INT_MIN / 10) || (nbr == INT_MIN / 10
 					&& sign * (str[i] - '0') < INT_MIN % 10)))
 			*check = -1;
