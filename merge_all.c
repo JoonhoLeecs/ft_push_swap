@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:05:41 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 16:59:52 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:45:17 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,121 +19,81 @@ int	merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	check = 0;
 	if (a->n_subseq == 1 && b->n_subseq == 0 && is_ordered(a))
 		return (0);
-	while (a->n_subseq == b->n_subseq && check == 0 && a->n_subseq > 1
-		&& a->n_subseq == get_greatest_power_two(a->n_subseq))
-		check += gpt_merge(a, b, ops);
-	if (a->n_subseq == 1 && b->n_subseq == 1)
-		return (fmerge_b_to_a(a, b, ops));
-	while (a->n_subseq < b->n_subseq && check == 0)
-		check += better_merge_ba(a, b, ops);
-	while (a->n_subseq > b->n_subseq && check == 0)
-		check += better_merge_ab(a, b, ops);
-	while (a->n_subseq == b->n_subseq && check == 0
-		&& a->n_subseq > get_greatest_power_two(a->n_subseq))
-		check += double_merge(a, b, ops);
-	if (check != 0)
-		return (check);
-	else
-		return (merge_all(a, b, ops));
-}
-
-int	merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
-{
-	int	a_count;
-	int	b_count;
-	int	check;
-
-	a_count = a->top_sub->n_node;
-	b_count = b->top_sub->n_node;
-	check = 0;
-	while ((0 < a_count || 0 < b_count) && check == 0)
+	if (b->n_subseq == 2)
+		return (merge_small(a, b, ops));
+	while (a->n_subseq + b->n_subseq > 1 && check == 0)
 	{
-		if ((a->top->raw < b->top->raw && 0 < a_count) || b_count == 0)
-		{
-			check += ps_ra(a, ops);
-			a_count--;
-		}
-		else if ((a->top->raw > b->top->raw && 0 < b_count) || a_count == 0)
-		{
-			check += ps_pa(a, b, ops);
-			if (check == 0)
-			check += ps_ra(a, ops);
-			b_count--;
-		}
+		// pstest_print_subs(a, b, ops);
+		// if (a->n_subseq > 0 && b->n_subseq)
+		// 	printf("wrong!!!!!\n");
+		if (a->n_subseq == 0)
+			check = merge_allb_to_a(a, b, ops);
+		else
+			check = merge_alla_to_b(a, b, ops);
 	}
-	if (check == 0)
-		submerge_b_to_a(a, b);
 	return (check);
 }
 
-void	submerge_b_to_a(t_ps_deck *a, t_ps_deck *b)
+int	merge_small(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	t_ps_subseq	*a_top_sub;
-	t_ps_subseq	*b_top_sub;
-	t_ps_node	*node_iter;
+	int	check;
+	// pstest_print_subs(a, b, ops);
 
-	a_top_sub = sub_remove_top(a);
-	b_top_sub = sub_remove_top(b);
-	a_top_sub->n_node = a_top_sub->n_node + b_top_sub->n_node;
-	if (a_top_sub->top->raw > b_top_sub->top->raw)
-		a_top_sub->top = b_top_sub->top;
-	if (a_top_sub->bottom->raw < b_top_sub->bottom->raw)
-		a_top_sub->bottom = b_top_sub->bottom;
-	clear_sub(b_top_sub);
-	node_iter = a_top_sub->top;
-	while (node_iter)
+	check = 0;
+	if (a->n_subseq == 0)
 	{
-		node_iter->sub_ind = a_top_sub->sub_ind;
-		node_iter = node_iter->next;
+		check = ps_sub_pa(a, b, ops);
+		if (check == 0)
+			check = merge_b_to_a_inc(a, b, ops);
+		return (0);
 	}
-	sub_add_bottom(a, a_top_sub);
+	if (a->n_subseq == 1 && a->top_sub->sub_ind < 0)
+		check = ps_sub_sa(a, b, ops);
+	if (check == 0)
+		check = merge_b_to_a_inc(a, b, ops);
+	// pstest_print_subs(a, b, ops);
+
+	return (0);
 }
 
-int	merge_a_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	merge_allb_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	int	a_count;
-	int	b_count;
+	int	count;
 	int	check;
 
-	a_count = a->top_sub->n_node;
-	b_count = b->top_sub->n_node;
+	// pstest_print_subs(a, b, ops);
 	check = 0;
-	while ((0 < a_count || 0 < b_count) && check == 0)
+	count = b->n_subseq / 3;
+	while (count-- > 0 && check == 0)
+		check = ps_sub_pa(a, b, ops);
+	// pstest_print_subs(a, b, ops);
+	while (b->n_subseq > 0)
 	{
-		if ((a->top->raw > b->top->raw && 0 < b_count) || a_count == 0)
-		{
-			check += ps_rb(b, ops);
-			b_count--;
-		}
-		else if ((a->top->raw < b->top->raw && 0 < a_count) || b_count == 0)
-		{
-			check += ps_pb(a, b, ops);
-			if (check == 0)
-				check += ps_rb(b, ops);
-			a_count--;
-		}
+		if (a->bottom_sub->sub_ind > 0 && check == 0)
+			check = merge_b_to_a_inc(a, b, ops);
+		else if (a->bottom_sub->sub_ind < 0 && check == 0)
+			check = merge_b_to_a_dec(a, b, ops);
 	}
-	if (check == 0)
-		submerge_b_to_a(b, a);
 	return (check);
 }
 
-int	double_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	merge_alla_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	int			check;
+	int	count;
+	int	check;
 
+	// pstest_print_subs(a, b, ops);
 	check = 0;
-	if (count_baab(a, b) >= count_baab(b, a))
+	count = a->n_subseq / 3;
+	while (count-- > 0 && check == 0)
+		check = ps_sub_pb(a, b, ops);
+	// pstest_print_subs(a, b, ops);
+	while (a->n_subseq > 0)
 	{
-		check += tw_merge_ba(a, b, ops);
-		if (check == 0)
-			check += tw_merge_ab(a, b, ops);
-	}
-	else
-	{
-		check += tw_merge_ab(a, b, ops);
-		if (check == 0)
-			check += tw_merge_ba(a, b, ops);
+		if (b->bottom_sub->sub_ind > 0 && check == 0)
+			check = merge_a_to_b_inc(a, b, ops);
+		else if (b->bottom_sub->sub_ind < 0 && check == 0)
+			check = merge_a_to_b_dec(a, b, ops);
 	}
 	return (check);
 }

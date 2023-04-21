@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:35:16 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 18:59:36 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/21 09:17:30 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	replace_to_rrr(t_op_node *top, t_op_node *bottom, int ra, int rb)
 	if (bottom)
 		bottom->prev = op_iter->prev;
 	i = 0;
-	while (i < rr)
+	while (op_iter && i < rr)
 	{
 		bottom = op_iter;
 		ops_clear_node(bottom);
@@ -117,7 +117,7 @@ void	replace_to_ss(t_op_node *top, t_op_node *bottom, int ra, int rb)
 	if (bottom)
 		bottom->prev = op_iter->prev;
 	i = 0;
-	while (i < rr)
+	while (op_iter && i < rr)
 	{
 		bottom = op_iter;
 		ops_clear_node(bottom);

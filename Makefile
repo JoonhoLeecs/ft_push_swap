@@ -9,9 +9,6 @@ SRC = assign_subs.c \
 		merge_all.c \
 		merge_all2.c \
 		merge_all3.c \
-		merge_all4.c \
-		merge_all5.c \
-		merge_all6.c \
 		parse_input.c \
 		ps_deck.c \
 		ps_deck2.c \
@@ -33,7 +30,8 @@ SRC = assign_subs.c \
 		strs_to_deck.c \
 		refine_ops.c \
 		refine_ops2.c \
-		ft_strcmp.c
+		ft_strcmp.c \
+		tmp_test.c
 HEADER = push_swap.h
 OBJECTS = $(SRC:.c=.o)
 NAME = push_swap

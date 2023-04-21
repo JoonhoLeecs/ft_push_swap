@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 18:36:44 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:47:20 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft/libft.h"
+
+# include <stdio.h>
 
 typedef struct s_ps_node
 {
@@ -66,6 +68,7 @@ t_ps_deck	*strs_to_deck(char **nbrs);
 int			ps_atoi(const char *str, int *check);
 int			have_duplicate(t_ps_deck *a);
 t_ps_deck	*free_nbrs_deck(char **nbrs, t_ps_deck *a);
+
 t_ops_deck	*sort_record(t_ps_deck *a, t_ps_deck *b);
 int			is_ordered(t_ps_deck *a);
 int			sort_small(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
@@ -80,49 +83,32 @@ int			assign_subs(t_ps_deck *a);
 int			find_next_inc_dec(t_ps_node *a);
 
 int			divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			calc_divide(t_ps_deck *a);
-void		adjust_to_a(t_ps_deck *a, int *n_b_node, int *n_b_sub);
-void		adjust_to_b(t_ps_deck *a, int *n_b_node, int *n_b_sub);
-int			find_sub_to_move(t_ps_deck *a, t_ps_deck *b, int nf_b_sub);
-int			ds_better_rasa(t_ps_deck *a, t_ops_deck *ops);
-int			ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-void		submerge_rasa(t_ps_deck *a);
-void		submerge_pbsa(t_ps_deck *a, t_ps_deck *b);
-void		submerge_two_bottoms(t_ps_deck *a);
-int			ds_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int *nf);
-int			ds_merge_condition(t_ps_deck *a, t_ps_deck *b);
+int			move_seed(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			greatest_power_a(int n, unsigned int a);
+int			move_seed_two(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			move_seed_s(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			move_seed_l(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int nf);
+int			set_sign(int *sign, int nf);
+int			find_sub_sign(t_ps_deck *a, int sign);
+int			ds_move_s(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			ds_move_l(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			ds_realign(t_ps_deck *b, t_ops_deck *ops);
+int			ds_find_rb_rrb(t_ps_deck *b);
 
 void		refine_subs(t_ps_deck *a, t_ps_deck *b);
 void		refine_sub(t_ps_deck *a);
 void		update_sub_ind(t_ps_subseq *sub, int sub_ind);
 
 int			merge_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			merge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			merge_a_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-void		submerge_b_to_a(t_ps_deck *a, t_ps_deck *b);
-int			double_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			merge_a_tops(t_ps_deck *a, t_ops_deck *ops);
-int			merge_b_tops(t_ps_deck *b, t_ops_deck *ops);
-int			check_a_tops(t_ps_deck *a, t_ps_deck *b);
-int			tw_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			tw_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-int			count_first(t_ps_subseq *sub, t_ps_deck *a);
-int			split_top_sub(t_ps_deck *a);
-int			gpt_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
-void		gpt_divide(t_ps_deck *a, t_ps_deck *b);
-void		gpt_divide_reset(t_ps_deck *a, t_ps_deck *b);
-void		find_divide(int i, t_ps_deck *a, t_ps_deck *b);
-void		find_min_update(int i, t_ps_deck *a, t_ps_deck *b, int min);
-int			get_greatest_power_two(int n);
-int			get_exponent(int n);
-int			count_ba(t_ps_deck *a, t_ps_deck *b);
-int			count_baab(t_ps_deck *a, t_ps_deck *b);
-int			add_count_baab(int n_first, int a_top_raw, int b_bot, int bn);
-int			bottom_of_first(t_ps_subseq *sub, int raw);
-int			count_first_raw(t_ps_subseq *sub, int raw);
-int			max(int a, int b);
+int			merge_small(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_allb_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_alla_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_a_to_b_inc(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_a_to_b_dec(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_b_to_a_inc(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			merge_b_to_a_dec(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+void		submerge_three_to_b(t_ps_deck *a, t_ps_deck *b);
+void		submerge_tops_to_b(t_ps_deck *a, t_ps_deck *b);
 
 void		refine_ops(t_ops_deck *ops);
 int			is_op(t_op_node *op_node, char *op);
@@ -137,10 +123,13 @@ int			ft_strcmp(char *s1, char *s2);
 
 void		clear_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
-int			ps_sub_sa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_ra(t_ps_deck *a, t_ops_deck *ops);
 int			ps_sub_rb(t_ps_deck *a, t_ops_deck *ops);
+int			ps_sub_rra(t_ps_deck *a, t_ops_deck *ops);
+int			ps_sub_rrb(t_ps_deck *b, t_ops_deck *ops);
+int			ps_sub_pa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int			ps_sub_sa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_pbrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ps_sub_para(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 
@@ -180,5 +169,9 @@ void		sub_add_bottom(t_ps_deck *a, t_ps_subseq *sub);
 t_ps_subseq	*sub_remove_top(t_ps_deck *deck);
 t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck);
 void		clear_sub(t_ps_subseq *a);
+
+void pstest_print_decks(t_ps_deck *a, t_ps_deck *b);
+void pstest_print_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int n_ops(t_ops_deck *ops);
 
 #endif

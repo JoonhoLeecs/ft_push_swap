@@ -5,44 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 17:09:49 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 09:44:01 by joonhlee         ###   ########.fr       */
+/*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
+/*   Updated: 2023/04/21 14:24:26 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ds_merge(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int *nf)
+int	ds_realign(t_ps_deck *b, t_ops_deck *ops)
 {
-	if (ds_merge_condition(a, b) == 1)
-	{
-		if (check_a_tops(b, a))
-		{
-			*nf -= 1;
-			return (merge_b_tops(b, ops));
-		}
-		else if (check_a_tops(a, b))
-			return (merge_a_tops(a, ops));
-		else if (count_ba(b, a) <= count_ba(a, b))
-			return (tw_merge_ab(a, b, ops));
-		else if (count_ba(b, a) > count_ba(a, b))
-		{
-			*nf -= 1;
-			return (tw_merge_ba(a, b, ops));
-		}
-	}
-	return (ds_better_rasa(a, ops));
+	int	check;
+	int	direction;
+
+	if (b->bottom_sub->divide == 0)
+		return (0);
+	direction = ds_find_rb_rrb(b);
+	check = 0;
+	while (direction > 0 && b->bottom_sub->divide != 0 && check == 0)
+		check = ps_sub_rb(b, ops);
+	while (direction <= 0 && b->bottom_sub->divide != 0 && check == 0)
+		check = ps_sub_rrb(b, ops);
+	return (check);
 }
 
-int	ds_merge_condition(t_ps_deck *a, t_ps_deck *b)
+int	ds_find_rb_rrb(t_ps_deck *b)
 {
-	if (a->n_subseq > 1 && b->n_subseq > 1 && find_next_inc_dec(a->top) >= 0
-		&& find_next_inc_dec(b->bottom_sub->top) >= 0
-		&& find_next_inc_dec(b->top) >= 0
-		&& find_next_inc_dec(a->bottom_sub->top) >= 0
-		&& find_next_inc_dec(a->top_sub->next_sub->top) > 0
-		&& find_next_inc_dec(b->top_sub->next_sub->top) > 0)
-		return (1);
-	else
-		return (0);
+	t_ps_subseq	*sub_iter;
+	int			rb;
+	int			rrb;
+
+	sub_iter = b->top_sub;
+	rb = 0;
+	while (sub_iter)
+	{
+		rb += sub_iter->n_node;
+		if (sub_iter->divide == 0)
+			break ;
+		sub_iter = sub_iter->next_sub;
+	}
+	sub_iter = b->bottom_sub;
+	rrb = 0;
+	while (sub_iter)
+	{
+		if (sub_iter->divide == 0)
+			break ;
+		rrb += sub_iter->n_node;
+		sub_iter = sub_iter->prev_sub;
+	}
+	return (rrb - rb);
 }

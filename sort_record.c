@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:14:30 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 17:32:50 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:26:58 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ t_ops_deck	*sort_record(t_ps_deck *a, t_ps_deck *b)
 		check += assign_subs(a);
 	if (check == 0)
 		check += divide_subs(a, b, ops);
+	// printf("divide sub done?\n");
+	// pstest_print_subs(a, b, ops);
+
 	if (check == 0)
 		check += merge_all(a, b, ops);
+	// printf("merge all done?\n");
+	// printf("isordered?=%d\n", is_ordered(a));
+	// pstest_print_subs(a, b, ops);
 	if (check == 0)
 		refine_ops(ops);
 	if (check > 0)

@@ -5,141 +5,138 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/15 16:45:42 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 08:28:48 by joonhlee         ###   ########.fr       */
+/*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
+/*   Updated: 2023/04/21 14:19:27 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ds_better_rasa(t_ps_deck *a, t_ops_deck *ops)
+int	move_seed_l(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int nf)
 {
+	int			*sign;
+	int			i;
 	int			check;
-	int			count;
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
 
-	top_sub = a->top_sub;
-	next_sub = top_sub->next_sub;
-	if (next_sub->divide == 1 || top_sub->top->raw > next_sub->top->raw
-		|| top_sub->n_node > 2 || top_sub->bottom->raw < next_sub->top->raw)
-		return (ps_sub_ra(a, ops));
-	check = 0;
-	count = top_sub->n_node + next_sub->n_node;
-	while (0 < count && check == 0)
+	sign = (int *) malloc ((nf + 1) * sizeof (int));
+	if (sign == 0)
+		return (1);
+	check = set_sign(sign, nf);
+	// i = 0;
+	// while (i < nf)
+	// 	printf("|%d", sign[i++]);
+	// printf("|\n");
+	i = 0;
+	while (i < nf && check == 0)
 	{
-		if (1 < count-- && find_next_inc_dec(a->top) < 0)
-		{
-			check = ps_sa(a, ops);
-			if (check == 0)
-				ps_ra(a, ops);
-		}
+		if ((sign[i]) * (a->top_sub->sub_ind) < 0)
+			check = ps_sub_pb(a, b, ops);
+		else if (a->top_sub->n_node <= 3
+			|| find_sub_sign(a, sign[i] * -1) == 0)
+			check = ps_sub_sa(a, b, ops) + ps_sub_pb(a, b, ops);
 		else
-			check = ps_ra(a, ops);
+		{
+			check = ps_sub_ra(a, ops);
+			i--;
+		}
+		i++;
+		if (b->top_sub && i > 0)
+			b->top_sub->divide = i - 1;
 	}
-	submerge_rasa(a);
+	free(sign);
 	return (check);
 }
 
-int	ds_better_pbsa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	set_sign(int *sign, int nf)
 {
-	int			check;
-	int			count;
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
+	int	i;
+	int	size;
 
-	top_sub = a->top_sub;
-	next_sub = top_sub->next_sub;
-	if (next_sub->divide == 0 || top_sub->bottom->raw > next_sub->top->raw
-		|| top_sub->n_node > 2 || top_sub->top->raw < next_sub->top->raw)
-		return (ps_sub_pb(a, b, ops));
-	check = 0;
-	count = top_sub->n_node + next_sub->n_node;
-	while (0 < count && check == 0)
+	if (nf != greatest_power_a(nf, 3))
+		return (1);
+	sign[0] = 1;
+	size = 1;
+	while (size * 3 <= nf)
 	{
-		if (1 < count-- && find_next_inc_dec(a->top) > 0)
+		i = 0;
+		while (i < size)
 		{
-			check = ps_sa(a, ops);
-			if (check == 0)
-				ps_pb(a, b, ops);
+			sign[i + 2 * size] = (sign[size - 1 - i]) * -1;
+			sign[i + size] = (sign[size - 1 - i]) * -1;
+			i++;
 		}
-		else
-			check = ps_pb(a, b, ops);
+		size = size * 3;
 	}
-	submerge_pbsa(a, b);
+	return (0);
+}
+
+int	find_sub_sign(t_ps_deck *a, int sign)
+{
+	t_ps_subseq	*sub_iter;
+	int			count;
+
+	sub_iter = a->top_sub;
+	count = 0;
+	sign = (sign > 0) * 1 + (sign < 0) * -1;
+	while (sub_iter)
+	{
+		if (sub_iter-> n_node <= 3)
+			count++;
+		if (sub_iter->sub_ind * sign > 0 && sub_iter->n_node > 3)
+			count++;
+		sub_iter = sub_iter->next_sub;
+	}
+	return (count);
+}
+
+int	ds_move_s(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+{
+	int	check;
+
+	check = 0;
+	while (a->n_subseq > 1 && check == 0)
+	{
+		if (a->bottom_sub->sub_ind * b->bottom_sub->sub_ind < 0)
+		{
+			if (a->top_sub->sub_ind * b->bottom_sub->sub_ind > 0)
+				check = ps_sub_ra(a, ops);
+		}
+		if (a->n_subseq > 1 && a->top_sub->n_node <= 3 && check == 0
+			&& a->top_sub->sub_ind * b->bottom_sub->sub_ind > 0)
+			check = ps_sub_sa(a, b, ops);
+		if (b->bottom_sub->sub_ind > 0 && check == 0)
+			check = merge_a_to_b_inc(a, b, ops);
+		else if (b->bottom_sub->sub_ind < 0 && check == 0)
+			check = merge_a_to_b_dec(a, b, ops);
+	}
+	check = ds_realign(b, ops);
 	return (check);
 }
 
-void	submerge_rasa(t_ps_deck *a)
+int	ds_move_l(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
-	t_ps_node	*node_iter;
+	int	check;
 
-	top_sub = sub_remove_top(a);
-	next_sub = sub_remove_top(a);
-	top_sub->n_node = top_sub->n_node + next_sub->n_node;
-	if (top_sub->top->raw > next_sub->top->raw)
-		top_sub->top = next_sub->top;
-	if (top_sub->bottom->raw < next_sub->bottom->raw)
-		top_sub->bottom = next_sub->bottom;
-	clear_sub(next_sub);
-	node_iter = top_sub->top;
-	while (node_iter)
+	// printf("where???\n");
+	// pstest_print_subs(a, b, ops);
+	check = 0;
+	while (a->n_subseq > 0 && check == 0)
 	{
-		node_iter->sub_ind = top_sub->sub_ind;
-		node_iter = node_iter->next;
+		if (a->bottom_sub->sub_ind * b->bottom_sub->sub_ind < 0)
+		{
+			if (a->top_sub->sub_ind * b->bottom_sub->sub_ind > 0)
+				check = ps_sub_ra(a, ops);
+		}
+		if (a->n_subseq > 1 && a->top_sub->n_node <= 3 && check == 0
+			&& a->top_sub->sub_ind * b->bottom_sub->sub_ind > 0)
+			check = ps_sub_sa(a, b, ops);
+		if (b->bottom_sub->sub_ind > 0 && check == 0)
+			check = merge_a_to_b_inc(a, b, ops);
+		else if (b->bottom_sub->sub_ind < 0 && check == 0)
+			check = merge_a_to_b_dec(a, b, ops);
+		// printf("ds movel in while?\n");
+		// pstest_print_subs(a, b, ops);
 	}
-	sub_add_bottom(a, top_sub);
-}
-
-void	submerge_pbsa(t_ps_deck *a, t_ps_deck *b)
-{
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
-	t_ps_node	*node_iter;
-
-	top_sub = sub_remove_top(a);
-	next_sub = sub_remove_top(a);
-	top_sub->n_node = top_sub->n_node + next_sub->n_node;
-	if (top_sub->bottom->raw < next_sub->bottom->raw)
-		node_iter = top_sub->bottom;
-	else
-		node_iter = next_sub->bottom;
-	if (top_sub->top->raw > next_sub->top->raw)
-		top_sub->bottom = top_sub->top;
-	else
-		top_sub->bottom = next_sub->top;
-	top_sub->top = node_iter;
-	clear_sub(next_sub);
-	while (node_iter->raw < top_sub->bottom->raw)
-	{
-		node_iter->sub_ind = top_sub->sub_ind;
-		node_iter = node_iter->next;
-	}
-	node_iter->sub_ind = top_sub->sub_ind;
-	sub_add_top(b, top_sub);
-}
-
-void	submerge_two_bottoms(t_ps_deck *a)
-{
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
-	t_ps_node	*node_iter;
-
-	next_sub = sub_remove_bottom(a);
-	top_sub = sub_remove_bottom(a);
-	top_sub->n_node = top_sub->n_node + next_sub->n_node;
-	if (top_sub->top->raw > next_sub->top->raw)
-		top_sub->top = next_sub->top;
-	if (top_sub->bottom->raw < next_sub->bottom->raw)
-		top_sub->bottom = next_sub->bottom;
-	clear_sub(next_sub);
-	node_iter = top_sub->top;
-	while (node_iter)
-	{
-		node_iter->sub_ind = top_sub->sub_ind;
-		node_iter = node_iter->next;
-	}
-	sub_add_bottom(a, top_sub);
+	check = ds_realign(b, ops);
+	return (check);
 }

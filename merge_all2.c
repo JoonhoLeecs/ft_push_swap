@@ -5,109 +5,161 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/15 19:56:18 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 08:54:42 by joonhlee         ###   ########.fr       */
+/*   Created: 2023/04/13 21:05:41 by joonhlee          #+#    #+#             */
+/*   Updated: 2023/04/21 14:46:24 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	better_merge_ab(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	merge_a_to_b_inc(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	int			check;
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
+	int	na_top;
+	int	na_bot;
+	int	nb_bot;
+	int	check;
 
-	top_sub = a->top_sub;
-	next_sub = top_sub->next_sub;
-	if (check_a_tops(a, b))
-		return (merge_a_tops(a, ops));
+	na_top = (a->top_sub->sub_ind * b->bottom_sub->sub_ind < 0)
+		* a->top_sub->n_node;
+	na_bot = (a->bottom_sub->sub_ind * b->bottom_sub->sub_ind > 0)
+		* a->bottom_sub->n_node;
+	nb_bot = b->bottom_sub->n_node;
 	check = 0;
-	if (count_ba(b, a) <= count_ba(a, b)
-		|| b->n_subseq == get_greatest_power_two(b->n_subseq))
+	while ((na_top > 0 || na_bot > 0 || nb_bot > 0) && check == 0)
 	{
-		check += tw_merge_ab(a, b, ops);
-	}
-	else
-		check += double_merge(a, b, ops);
-	return (check);
-}
-
-int	merge_a_tops(t_ps_deck *a, t_ops_deck *ops)
-{
-	int			check;
-	int			count;
-
-	check = 0;
-	count = a->top_sub->n_node + a->top_sub->next_sub->n_node;
-	while (0 < count && check == 0)
-	{
-		if (1 < count-- && find_next_inc_dec(a->top) < 0)
+		if (na_top > 0 && (na_bot == 0 || a->top->raw > a->bottom->raw)
+			&& (nb_bot == 0 || a->top->raw > b->bottom->raw))
 		{
-			if (ps_sa(a, ops) == 0)
-				ps_ra(a, ops);
+			check += ps_pb(a, b, ops);
+			na_top--;
 		}
-		else
-			check = ps_ra(a, ops);
-	}
-	submerge_rasa(a);
-	return (check);
-}
-
-int	better_merge_ba(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
-{
-	int			check;
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
-
-	top_sub = b->top_sub;
-	next_sub = top_sub->next_sub;
-	if (check_a_tops(b, a))
-		return (merge_b_tops(b, ops));
-	check = 0;
-	if (count_ba(a, b) <= count_ba(b, a)
-		|| a->n_subseq == get_greatest_power_two(a->n_subseq))
-	{
-		check += tw_merge_ba(a, b, ops);
-	}
-	else
-		check += double_merge(a, b, ops);
-	return (check);
-}
-
-int	merge_b_tops(t_ps_deck *b, t_ops_deck *ops)
-{
-	int			check;
-	int			count;
-
-	check = 0;
-	count = b->top_sub->n_node + b->top_sub->next_sub->n_node;
-	while (0 < count && check == 0)
-	{
-		if (1 < count-- && find_next_inc_dec(b->top) < 0)
+		else if (na_bot > 0 && (na_top == 0 || a->bottom->raw > a->top->raw)
+			&& (nb_bot == 0 || a->bottom->raw > b->bottom->raw))
 		{
-			check = ps_sb(b, ops);
-			if (check == 0)
-				ps_rb(b, ops);
+			check += ps_rra(a, ops) + ps_pb(a, b, ops);
+			na_bot--;
 		}
-		else
-			check = ps_rb(b, ops);
+		else if (nb_bot > 0 && (na_top == 0 || b->bottom->raw > a->top->raw)
+			&& (na_bot == 0 || b->bottom->raw > a->bottom->raw))
+		{
+			check += ps_rrb(b, ops);
+			nb_bot--;
+		}
 	}
-	submerge_rasa(b);
+	submerge_three_to_b(a, b);
 	return (check);
 }
 
-int	check_a_tops(t_ps_deck *a, t_ps_deck *b)
+int	merge_a_to_b_dec(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 {
-	t_ps_subseq	*top_sub;
-	t_ps_subseq	*next_sub;
+	int	na_top;
+	int	na_bot;
+	int	nb_bot;
+	int	check;
 
-	top_sub = a->top_sub;
-	next_sub = top_sub->next_sub;
-	if (top_sub->n_node <= 2 && top_sub->top->raw < next_sub->top->raw
-		&& count_ba(b, a) > top_sub->n_node + next_sub->n_node
-		+ count_first_raw(next_sub, top_sub->bottom->raw))
-		return (1);
-	else
-		return (0);
+	na_top = (a->top_sub->sub_ind * b->bottom_sub->sub_ind < 0)
+		* a->top_sub->n_node;
+	na_bot = (a->bottom_sub->sub_ind * b->bottom_sub->sub_ind > 0)
+		* a->bottom_sub->n_node;
+	nb_bot = b->bottom_sub->n_node;
+	check = 0;
+	while ((na_top > 0 || na_bot > 0 || nb_bot > 0) && check == 0)
+	{
+		if (na_top > 0 && (na_bot == 0 || a->top->raw < a->bottom->raw)
+			&& (nb_bot == 0 || a->top->raw < b->bottom->raw))
+		{
+			check += ps_pb(a, b, ops);
+			na_top--;
+		}
+		else if (na_bot > 0 && (na_top == 0 || a->bottom->raw < a->top->raw)
+			&& (nb_bot == 0 || a->bottom->raw < b->bottom->raw))
+		{
+			check += ps_rra(a, ops) + ps_pb(a, b, ops);
+			na_bot--;
+		}
+		else if (nb_bot > 0 && (na_top == 0 || b->bottom->raw < a->top->raw)
+			&& (na_bot == 0 || b->bottom->raw < a->bottom->raw))
+		{
+			check += ps_rrb(b, ops);
+			nb_bot--;
+		}
+	}
+	submerge_three_to_b(a, b);
+	return (check);
+}
+
+int	merge_b_to_a_inc(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+{
+	int	nb_top;
+	int	nb_bot;
+	int	na_bot;
+	int	check;
+
+	nb_top = (b->top_sub->sub_ind * a->bottom_sub->sub_ind < 0)
+		* b->top_sub->n_node;
+	nb_bot = (b->bottom_sub->sub_ind * a->bottom_sub->sub_ind > 0)
+		* b->bottom_sub->n_node;
+	na_bot = a->bottom_sub->n_node;
+	check = 0;
+	while ((nb_top > 0 || nb_bot > 0 || na_bot > 0) && check == 0)
+	{
+		if (nb_top > 0 && (nb_bot == 0 || b->top->raw > b->bottom->raw)
+			&& (na_bot == 0 || b->top->raw > a->bottom->raw))
+		{
+			check += ps_pa(a, b, ops);
+			nb_top--;
+		}
+		else if (nb_bot > 0 && (nb_top == 0 || b->bottom->raw > b->top->raw)
+			&& (na_bot == 0 || b->bottom->raw > a->bottom->raw))
+		{
+			check += ps_rrb(b, ops) + ps_pa(a, b, ops);
+			nb_bot--;
+		}
+		else if (na_bot > 0 && (nb_top == 0 || a->bottom->raw > b->top->raw)
+			&& (nb_bot == 0 || a->bottom->raw > b->bottom->raw))
+		{
+			check += ps_rra(a, ops);
+			na_bot--;
+		}
+	}
+	submerge_three_to_b(b, a);
+	return (check);
+}
+
+int	merge_b_to_a_dec(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+{
+	int	nb_top;
+	int	nb_bot;
+	int	na_bot;
+	int	check;
+
+	nb_top = (b->top_sub->sub_ind * a->bottom_sub->sub_ind < 0)
+		* b->top_sub->n_node;
+	nb_bot = (b->bottom_sub->sub_ind * a->bottom_sub->sub_ind > 0)
+		* b->bottom_sub->n_node;
+	na_bot = a->bottom_sub->n_node;
+	check = 0;
+	while ((nb_top > 0 || nb_bot > 0 || na_bot > 0) && check == 0)
+	{
+		if (nb_top > 0 && (nb_bot == 0 || b->top->raw < b->bottom->raw)
+			&& (na_bot == 0 || b->top->raw < a->bottom->raw))
+		{
+			check += ps_pa(a, b, ops);
+			nb_top--;
+		}
+		else if (nb_bot > 0 && (nb_top == 0 || b->bottom->raw < b->top->raw)
+			&& (na_bot == 0 || b->bottom->raw < a->bottom->raw))
+		{
+			check += ps_rrb(b, ops) + ps_pa(a, b, ops);
+			nb_bot--;
+		}
+		else if (na_bot > 0 && (nb_top == 0 || a->bottom->raw < b->top->raw)
+			&& (nb_bot == 0 || a->bottom->raw < b->bottom->raw))
+		{
+			check += ps_rra(a, ops);
+			na_bot--;
+		}
+	}
+	submerge_three_to_b(b, a);
+	return (check);
 }
