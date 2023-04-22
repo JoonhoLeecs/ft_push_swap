@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:33:05 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/15 18:58:22 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:21:46 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	refine_ops(t_ops_deck *ops)
 		return ;
 	if (ops->head->next == 0)
 		return ;
+	erase_ra_rra(ops);
+	erase_rb_rrb(ops);
+
 	combine_to_rr(ops);
 	combine_to_rrr(ops);
 	combine_to_ss(ops);

@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:51:57 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:47:20 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:19:58 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,16 @@ int			ds_move_s(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ds_move_l(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 int			ds_realign(t_ps_deck *b, t_ops_deck *ops);
 int			ds_find_rb_rrb(t_ps_deck *b);
+int insertion_better(t_ps_deck *a, t_ps_deck *b);
+int insert_to_b(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
+int insert_by_rb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int s);
+int insert_by_rrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int s);
+int find_max(t_ps_deck *a);
+int find_min(t_ps_deck *a);
+int raw_find_ra_rra(t_ps_deck *a, int raw);
+int move_rb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int raw);
+int move_rrb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops, int raw);
+void insert_submerge(t_ps_deck *b, t_ps_subseq *sub);
 
 void		refine_subs(t_ps_deck *a, t_ps_deck *b);
 void		refine_sub(t_ps_deck *a);
@@ -120,6 +130,10 @@ void		combine_to_ss(t_ops_deck *ops);
 void		replace_to_ss(t_op_node *top, t_op_node *bottom, int ra, int rb);
 t_op_node	*overwrite_n_op(t_op_node *start, char *op_str, int n);
 int			ft_strcmp(char *s1, char *s2);
+void erase_ra_rra(t_ops_deck *ops);
+void erase_rb_rrb(t_ops_deck *ops);
+void erase_r_rr(t_op_node *top, t_op_node *bottom);
+
 
 void		clear_all(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops);
 

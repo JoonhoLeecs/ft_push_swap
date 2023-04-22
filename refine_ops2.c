@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:35:16 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/21 09:17:30 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:24:35 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,83 @@ void	replace_to_ss(t_op_node *top, t_op_node *bottom, int ra, int rb)
 		op_iter = op_iter->next;
 		i++;
 	}
+}
+
+void	erase_ra_rra(t_ops_deck *ops)
+{
+	t_op_node	*top;
+	t_op_node	*bottom;
+	int			ra_count;
+	int			rra_count;
+
+	if (ops->head->next->next == 0)
+		return ;
+	top = ops->head;
+	while (top && top->next)
+	{
+		if ((is_op(top->next, "ra\n") == 0 && is_op(top->next, "rra\n") == 0)
+			|| top->next->next == 0)
+			top = top->next;
+		else
+		{
+			ra_count = is_op(top->next, "ra\n") + is_op(top->next->next, "ra\n");
+			rra_count = is_op(top->next, "rra\n") + is_op(top->next->next, "rra\n");
+			bottom = top->next->next->next;
+			if (ra_count == 1 && rra_count == 1)
+			{
+				erase_r_rr(top, bottom);
+				top = bottom;
+			}
+			else
+				top = top->next;
+		}
+	}
+}
+
+void	erase_rb_rrb(t_ops_deck *ops)
+{
+	t_op_node	*top;
+	t_op_node	*bottom;
+	int			ra_count;
+	int			rra_count;
+
+	if (ops->head->next->next == 0)
+		return ;
+	top = ops->head;
+	while (top && top->next)
+	{
+		if ((is_op(top->next, "rb\n") == 0 && is_op(top->next, "rrb\n") == 0)
+			|| top->next->next == 0)
+			top = top->next;
+		else
+		{
+			ra_count = is_op(top->next, "rb\n") + is_op(top->next->next, "rb\n");
+			rra_count = is_op(top->next, "rrb\n") + is_op(top->next->next, "rrb\n");
+			bottom = top->next->next->next;
+			if (ra_count == 1 && rra_count == 1)
+			{
+				erase_r_rr(top, bottom);
+				top = bottom;
+			}
+			else
+				top = top->next;
+		}
+	}
+}
+
+void	erase_r_rr(t_op_node *top, t_op_node *bottom)
+{
+	t_op_node	*op_iter;
+	// int			i;
+
+	// printf("r_rr pair\n");
+	// op_iter = top;
+	// op_iter = bottom;
+	op_iter = top->next->next;
+	ops_clear_node(op_iter);
+	op_iter = top->next;
+	ops_clear_node(op_iter);
+	if (bottom)
+		bottom->prev = top;
+	top->next = bottom;
 }

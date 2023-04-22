@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:24:26 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:09:01 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	ds_find_rb_rrb(t_ps_deck *b)
 	int			rrb;
 
 	sub_iter = b->top_sub;
+	if (sub_iter->divide == 0)
+		return (0);
 	rb = 0;
 	while (sub_iter)
 	{

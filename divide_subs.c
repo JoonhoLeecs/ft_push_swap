@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:40:58 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:55:09 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	move_seed(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	nf_seed = greatest_power_a(a->n_subseq, 9);
 	if (nf_seed < 9)
 		nf_seed = 2 + (a->n_subseq == 2) * (-1);
-	else if (a->n_subseq / nf_seed >= 3)
-		nf_seed = nf_seed * 3;
+	// else if (a->n_subseq / nf_seed >= 3)
+	// 	nf_seed = nf_seed * 3;
 	else
 		nf_seed = (nf_seed / 3);
 	if (nf_seed == 1)

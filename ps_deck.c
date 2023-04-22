@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:18 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 08:52:16 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:51:01 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	ps_clear_all_subseq(t_ps_deck *deck)
 	}
 	deck->top_sub = 0;
 	deck->bottom_sub = 0;
+	deck->n_subseq = 0;
 }
