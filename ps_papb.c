@@ -6,13 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:46:58 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 11:01:27 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ps_pa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	ps_pa(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	t_op_node	*new_op_node;
 	t_ps_node	*top_node;
@@ -28,7 +28,7 @@ int	ps_pa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (0);
 }
 
-int	ps_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	ps_pb(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	t_op_node	*new_op_node;
 	t_ps_node	*top_node;

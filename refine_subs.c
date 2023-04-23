@@ -6,19 +6,19 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:12:20 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 16:19:17 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	refine_subs(t_ps_deck *a, t_ps_deck *b)
+void	refine_subs(t_ps_deque *a, t_ps_deque *b)
 {
 	refine_sub(a);
 	refine_sub(b);
 }
 
-void	refine_sub(t_ps_deck *a)
+void	refine_sub(t_ps_deque *a)
 {
 	t_ps_subseq	*sub_iter;
 	t_ps_subseq	*sub_iter_next;

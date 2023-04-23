@@ -6,22 +6,22 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:33:38 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/17 08:51:56 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ops_deck	*ops_new_deck(void)
+t_ops_deque	*ops_new_deque(void)
 {
-	t_ops_deck	*new_deck;
+	t_ops_deque	*new_deque;
 
-	new_deck = (t_ops_deck *) malloc(sizeof (t_ops_deck));
-	if (new_deck == 0)
+	new_deque = (t_ops_deque *) malloc(sizeof (t_ops_deque));
+	if (new_deque == 0)
 		return (0);
-	new_deck->head = 0;
-	new_deck->tail = 0;
-	return (new_deck);
+	new_deque->head = 0;
+	new_deque->tail = 0;
+	return (new_deque);
 }
 
 t_op_node	*ops_new_node(char *str)
@@ -45,31 +45,31 @@ void	ops_clear_node(t_op_node *op_node)
 	free(op_node);
 }
 
-t_ops_deck	*ops_clear_deck(t_ops_deck *ops_deck)
+t_ops_deque	*ops_clear_deque(t_ops_deque *ops_deque)
 {
 	t_op_node	*node_iter;
 	t_op_node	*node_to_clear;
 
-	if (ops_deck == 0)
+	if (ops_deque == 0)
 		return (0);
-	node_iter = ops_deck->head;
+	node_iter = ops_deque->head;
 	while (node_iter)
 	{
 		node_to_clear = node_iter;
 		node_iter = node_iter->next;
 		ops_clear_node(node_to_clear);
 	}
-	ops_deck->head = 0;
-	ops_deck->tail = 0;
-	free(ops_deck);
+	ops_deque->head = 0;
+	ops_deque->tail = 0;
+	free(ops_deque);
 	return (0);
 }
 
-void	ps_print_ops(t_ops_deck *ops_deck)
+void	ps_print_ops(t_ops_deque *ops_deque)
 {
 	t_op_node	*node_iter;
 
-	node_iter = ops_deck->head;
+	node_iter = ops_deque->head;
 	if (node_iter == 0)
 		return ;
 	while (node_iter)

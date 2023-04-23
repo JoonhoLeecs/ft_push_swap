@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:51:54 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 12:44:00 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_ps_subseq	*sub_new(t_ps_node *top, t_ps_node *bottom, int n, int ind)
 	return (new_sub);
 }
 
-void	sub_add_top(t_ps_deck *a, t_ps_subseq *sub)
+void	sub_add_top(t_ps_deque *a, t_ps_subseq *sub)
 {
 	a->n_subseq += 1;
 	if (a->top_sub == 0)
@@ -55,7 +55,7 @@ void	sub_add_top(t_ps_deck *a, t_ps_subseq *sub)
 	}
 }
 
-void	sub_add_bottom(t_ps_deck *a, t_ps_subseq *sub)
+void	sub_add_bottom(t_ps_deque *a, t_ps_subseq *sub)
 {
 	a->n_subseq += 1;
 	if (a->bottom_sub == 0)
@@ -71,36 +71,36 @@ void	sub_add_bottom(t_ps_deck *a, t_ps_subseq *sub)
 	}
 }
 
-t_ps_subseq	*sub_remove_top(t_ps_deck *deck)
+t_ps_subseq	*sub_remove_top(t_ps_deque *deque)
 {
 	t_ps_subseq	*top_to_remove;
 
-	if (deck == 0 || deck->top_sub == 0)
+	if (deque == 0 || deque->top_sub == 0)
 		return (0);
-	top_to_remove = deck->top_sub;
-	deck->n_subseq -= 1;
-	deck->top_sub = top_to_remove->next_sub;
-	if (deck->top_sub == 0)
-		deck->bottom_sub = 0;
-	if (deck->top_sub != 0)
-		deck->top_sub->prev_sub = 0;
+	top_to_remove = deque->top_sub;
+	deque->n_subseq -= 1;
+	deque->top_sub = top_to_remove->next_sub;
+	if (deque->top_sub == 0)
+		deque->bottom_sub = 0;
+	if (deque->top_sub != 0)
+		deque->top_sub->prev_sub = 0;
 	top_to_remove->next_sub = 0;
 	return (top_to_remove);
 }
 
-t_ps_subseq	*sub_remove_bottom(t_ps_deck *deck)
+t_ps_subseq	*sub_remove_bottom(t_ps_deque *deque)
 {
 	t_ps_subseq	*bottom_to_remove;
 
-	if (deck == 0 || deck->bottom_sub == 0)
+	if (deque == 0 || deque->bottom_sub == 0)
 		return (0);
-	bottom_to_remove = deck->bottom_sub;
-	deck->n_subseq -= 1;
-	deck->bottom_sub = bottom_to_remove->prev_sub;
-	if (deck->bottom_sub == 0)
-		deck->top_sub = 0;
-	if (deck->bottom_sub != 0)
-		deck->bottom_sub->next_sub = 0;
+	bottom_to_remove = deque->bottom_sub;
+	deque->n_subseq -= 1;
+	deque->bottom_sub = bottom_to_remove->prev_sub;
+	if (deque->bottom_sub == 0)
+		deque->top_sub = 0;
+	if (deque->bottom_sub != 0)
+		deque->bottom_sub->next_sub = 0;
 	bottom_to_remove->prev_sub = 0;
 	return (bottom_to_remove);
 }

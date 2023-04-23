@@ -6,13 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 09:17:00 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 11:04:47 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sort_four(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	sort_four(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 
@@ -27,7 +27,7 @@ int	sort_four(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	fmerge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	fmerge_b_to_a(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 	int	max;
@@ -52,7 +52,7 @@ int	fmerge_b_to_a(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	sort_five(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	sort_five(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 

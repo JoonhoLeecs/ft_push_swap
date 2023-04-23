@@ -6,39 +6,34 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:43:16 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 11:21:47 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int			valid_check(int argc, char **argv);
-static char			**arg_to_strs(int argc, char **argv);
-static char			*ft_strjoin_all(int argc, char **argv, char sep);
-static t_ps_deck	*error_parse_input(void);
-
-t_ps_deck	*parse_input(int argc, char **argv)
+t_ps_deque	*parse_input(int argc, char **argv)
 {
 	char		**nbrs;
-	t_ps_deck	*a;
+	t_ps_deque	*a;
 
 	if (valid_check(argc, argv) < 0)
 		return (error_parse_input());
 	nbrs = arg_to_strs(argc, argv);
 	if (nbrs == 0)
 		return (error_parse_input());
-	a = strs_to_deck(nbrs);
+	a = strs_to_deque(nbrs);
 	if (a == 0)
 		return (error_parse_input());
 	if (a->n_node == 0 || have_duplicate(a) > 0)
 	{
-		free_nbrs_deck(nbrs, a);
+		free_nbrs_deque(nbrs, a);
 		return (error_parse_input());
 	}
 	return (a);
 }
 
-static int	valid_check(int argc, char **argv)
+int	valid_check(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -66,7 +61,7 @@ static int	valid_check(int argc, char **argv)
 	return (1);
 }
 
-static char	**arg_to_strs(int argc, char **argv)
+char	**arg_to_strs(int argc, char **argv)
 {
 	char	*all_in_one;
 	char	**nbrs;
@@ -81,7 +76,7 @@ static char	**arg_to_strs(int argc, char **argv)
 	return (nbrs);
 }
 
-static char	*ft_strjoin_all(int argc, char **argv, char sep)
+char	*ft_strjoin_all(int argc, char **argv, char sep)
 {
 	size_t	len;
 	int		i;
@@ -109,7 +104,7 @@ static char	*ft_strjoin_all(int argc, char **argv, char sep)
 	return (result);
 }
 
-t_ps_deck	*error_parse_input(void)
+t_ps_deque	*error_parse_input(void)
 {
 	ft_putstr_fd("Error\n", 2);
 	return (0);

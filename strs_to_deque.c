@@ -1,52 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strs_to_deck.c                                     :+:      :+:    :+:   */
+/*   strs_to_deque.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 13:24:31 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/19 18:33:10 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:54:50 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <limits.h>
 
-t_ps_deck	*strs_to_deck(char **nbrs)
+t_ps_deque	*strs_to_deque(char **nbrs)
 {
-	t_ps_deck	*a;
+	t_ps_deque	*a;
 	t_ps_node	*new_node;
 	int			i;
 	int			check;
 	int			raw;
 
-	a = ps_new_deck();
+	a = ps_new_deque();
 	if (a == 0)
-		return (free_nbrs_deck(nbrs, 0));
+		return (free_nbrs_deque(nbrs, 0));
 	i = 0;
 	while (nbrs[i])
 	{
 		check = 0;
 		raw = ps_atoi(nbrs[i], &check);
 		if (check < 0)
-			return (free_nbrs_deck(nbrs, a));
+			return (free_nbrs_deque(nbrs, a));
 		new_node = ps_new_node(raw);
 		if (new_node == 0)
-			return (free_nbrs_deck(nbrs, a));
+			return (free_nbrs_deque(nbrs, a));
 		ps_add_bottom(a, new_node);
 		i++;
 	}
 	return (a);
 }
 
-t_ps_deck	*free_nbrs_deck(char **nbrs, t_ps_deck *a)
+t_ps_deque	*free_nbrs_deque(char **nbrs, t_ps_deque *a)
 {
 	int	i;
 
 	i = 0;
 	if (a != 0)
-		ps_clear_deck(a);
+		ps_clear_deque(a);
 	if (nbrs == 0)
 		return (0);
 	while (nbrs[i])
@@ -87,7 +87,7 @@ int	ps_atoi(const char *str, int *check)
 	return ((int)nbr);
 }
 
-int	have_duplicate(t_ps_deck *a)
+int	have_duplicate(t_ps_deque *a)
 {
 	t_ps_node	*node_i;
 	t_ps_node	*node_j;

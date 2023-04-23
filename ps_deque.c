@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_deck.c                                          :+:      :+:    :+:   */
+/*   ps_deque.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:04:18 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/22 15:51:01 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:53:20 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,30 @@ t_ps_node	*ps_new_node(int raw)
 	return (new_node);
 }
 
-t_ps_deck	*ps_new_deck(void)
+t_ps_deque	*ps_new_deque(void)
 {
-	t_ps_deck	*new_deck;
+	t_ps_deque	*new_deque;
 
-	new_deck = (t_ps_deck *) malloc(sizeof (t_ps_deck));
-	if (new_deck == 0)
+	new_deque = (t_ps_deque *) malloc(sizeof (t_ps_deque));
+	if (new_deque == 0)
 		return (0);
-	new_deck->n_node = 0;
-	new_deck->top = 0;
-	new_deck->bottom = 0;
-	new_deck->n_subseq = 0;
-	new_deck->top_sub = 0;
-	new_deck->bottom_sub = 0;
-	return (new_deck);
+	new_deque->n_node = 0;
+	new_deque->top = 0;
+	new_deque->bottom = 0;
+	new_deque->n_subseq = 0;
+	new_deque->top_sub = 0;
+	new_deque->bottom_sub = 0;
+	return (new_deque);
 }
 
-void	ps_clear_deck(t_ps_deck *deck)
+void	ps_clear_deque(t_ps_deque *deque)
 {
 	t_ps_node	*node_iter;
 	t_ps_node	*node_to_clear;
 
-	if (deck == 0)
+	if (deque == 0)
 		return ;
-	node_iter = deck->top;
+	node_iter = deque->top;
 	while (node_iter)
 	{
 		node_to_clear = node_iter;
@@ -59,19 +59,19 @@ void	ps_clear_deck(t_ps_deck *deck)
 		free(node_to_clear);
 		node_to_clear = 0;
 	}
-	ps_clear_all_subseq(deck);
-	deck->top = 0;
-	deck->bottom = 0;
-	free(deck);
-	deck = 0;
+	ps_clear_all_subseq(deque);
+	deque->top = 0;
+	deque->bottom = 0;
+	free(deque);
+	deque = 0;
 }
 
-void	ps_clear_all_subseq(t_ps_deck *deck)
+void	ps_clear_all_subseq(t_ps_deque *deque)
 {
 	t_ps_subseq	*subseq_iter;
 	t_ps_subseq	*subseq_to_clear;
 
-	subseq_iter = deck->top_sub;
+	subseq_iter = deque->top_sub;
 	while (subseq_iter)
 	{
 		subseq_to_clear = subseq_iter;
@@ -83,7 +83,7 @@ void	ps_clear_all_subseq(t_ps_deck *deck)
 		free(subseq_to_clear);
 		subseq_to_clear = 0;
 	}
-	deck->top_sub = 0;
-	deck->bottom_sub = 0;
-	deck->n_subseq = 0;
+	deque->top_sub = 0;
+	deque->bottom_sub = 0;
+	deque->n_subseq = 0;
 }

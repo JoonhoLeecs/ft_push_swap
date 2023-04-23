@@ -6,27 +6,23 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:55:09 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	divide_subs(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 
-	// pstest_print_subs(a, b, ops);
 	if (a->n_subseq == 1 && a->top_sub->sub_ind > 0)
 		return (0);
 	if (a->n_subseq == 1 && a->top_sub->sub_ind < 0)
 		return (ps_sub_sa(a, b, ops));
 	check = move_seed(a, b, ops);
-	// printf("after move seed check = %d\n", check);
-	// pstest_print_subs(a, b, ops);
-
 	if (a->n_subseq == 1 && b->n_subseq == 1 && check == 0)
-		return (merge_b_to_a_inc(a, b, ops));
+		return (merge_b_to_a(a, b, ops));
 	else if (a->n_subseq > 0 && b->n_subseq == 2 && check == 0)
 		return (ds_move_s(a, b, ops));
 	else if (a->n_subseq > 0 && b->n_subseq > 2 && check == 0)
@@ -34,19 +30,13 @@ int	divide_subs(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-// printf("a->n_sub=%d|nf_seed=%d\n", a->n_subseq, nf_seed);
-// nf_seed = b->n_subseq;
-// nf_seed = n_ops(ops);
-
-int	move_seed(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	move_seed(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	nf_seed;
 
 	nf_seed = greatest_power_a(a->n_subseq, 9);
 	if (nf_seed < 9)
 		nf_seed = 2 + (a->n_subseq == 2) * (-1);
-	// else if (a->n_subseq / nf_seed >= 3)
-	// 	nf_seed = nf_seed * 3;
 	else
 		nf_seed = (nf_seed / 3);
 	if (nf_seed == 1)
@@ -68,7 +58,7 @@ int	greatest_power_a(int n, unsigned int a)
 	return (power);
 }
 
-int	move_seed_two(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	move_seed_two(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int			check;
 
@@ -91,7 +81,7 @@ int	move_seed_two(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	move_seed_s(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	move_seed_s(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 

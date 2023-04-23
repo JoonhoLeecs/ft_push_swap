@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:26:48 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/20 14:23:51 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_ps_subseq	*as_next(t_ps_node **top, t_ps_node **bottom, int *ind);
 
-int	assign_subs(t_ps_deck *a)
+int	assign_subs(t_ps_deque *a)
 {
 	t_ps_node	*sub_top;
 	t_ps_node	*sub_bottom;

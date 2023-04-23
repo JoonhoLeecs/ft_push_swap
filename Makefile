@@ -6,12 +6,14 @@ SRC = assign_subs.c \
 		divide_subs.c \
 		divide_subs2.c \
 		divide_subs3.c \
+		divide_subs4.c \
+		divide_subs5.c \
 		merge_all.c \
 		merge_all2.c \
 		merge_all3.c \
 		parse_input.c \
-		ps_deck.c \
-		ps_deck2.c \
+		ps_deque.c \
+		ps_deque2.c \
 		ps_ops.c \
 		ps_ops2.c \
 		ps_papb.c \
@@ -27,9 +29,10 @@ SRC = assign_subs.c \
 		sort_record.c \
 		sort_small.c \
 		sort_small2.c \
-		strs_to_deck.c \
+		strs_to_deque.c \
 		refine_ops.c \
 		refine_ops2.c \
+		refine_ops3.c \
 		ft_strcmp.c \
 		tmp_test.c
 HEADER = push_swap.h

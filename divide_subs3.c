@@ -6,13 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:46:21 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/22 16:09:01 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ds_realign(t_ps_deck *b, t_ops_deck *ops)
+int	ds_realign(t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 	int	direction;
@@ -28,7 +28,7 @@ int	ds_realign(t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	ds_find_rb_rrb(t_ps_deck *b)
+int	ds_find_rb_rrb(t_ps_deque *b)
 {
 	t_ps_subseq	*sub_iter;
 	int			rb;
@@ -55,4 +55,46 @@ int	ds_find_rb_rrb(t_ps_deck *b)
 		sub_iter = sub_iter->prev_sub;
 	}
 	return (rrb - rb);
+}
+
+int	same_order(t_ps_subseq *first, t_ps_subseq *second)
+{
+	if (first == 0 || second == 0)
+		return (0);
+	if (first->sub_ind * second->sub_ind > 0)
+		return (1);
+	else
+		return (-1);
+}
+
+int	find_max(t_ps_deque *a)
+{
+	t_ps_node	*node;
+	int			max;
+
+	node = a->top;
+	max = a->top->raw;
+	while (node)
+	{
+		if (max < node->raw)
+			max = node->raw;
+		node = node->next;
+	}
+	return (max);
+}
+
+int	find_min(t_ps_deque *a)
+{
+	t_ps_node	*node;
+	int			min;
+
+	node = a->top;
+	min = a->top->raw;
+	while (node)
+	{
+		if (min > node->raw)
+			min = node->raw;
+		node = node->next;
+	}
+	return (min);
 }

@@ -6,13 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 19:31:45 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/14 16:06:32 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sort_small(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	sort_small(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	int	check;
 
@@ -28,7 +28,7 @@ int	sort_small(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (sort_five(a, b, ops));
 }
 
-int	sort_two_a(t_ps_deck *a, t_ops_deck *ops)
+int	sort_two_a(t_ps_deque *a, t_ops_deque *ops)
 {
 	if (is_ordered(a) == 1)
 		return (0);
@@ -36,7 +36,7 @@ int	sort_two_a(t_ps_deck *a, t_ops_deck *ops)
 		return (ps_sa(a, ops));
 }
 
-int	sort_two_b(t_ps_deck *b, t_ops_deck *ops)
+int	sort_two_b(t_ps_deque *b, t_ops_deque *ops)
 {
 	if (is_ordered(b) == 1)
 		return (0);
@@ -44,7 +44,7 @@ int	sort_two_b(t_ps_deck *b, t_ops_deck *ops)
 		return (ps_sb(b, ops));
 }
 
-int	sort_three_a(t_ps_deck *a, t_ops_deck *ops)
+int	sort_three_a(t_ps_deque *a, t_ops_deque *ops)
 {
 	int	top_raw;
 	int	middle_raw;
@@ -72,7 +72,7 @@ int	sort_three_a(t_ps_deck *a, t_ops_deck *ops)
 	return (ps_rra(a, ops));
 }
 
-int	sort_three_b(t_ps_deck *b, t_ops_deck *ops)
+int	sort_three_b(t_ps_deque *b, t_ops_deque *ops)
 {
 	int	top_raw;
 	int	middle_raw;

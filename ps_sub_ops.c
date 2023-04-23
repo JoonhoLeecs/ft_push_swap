@@ -6,13 +6,13 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:44:22 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/21 13:57:20 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:45:18 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ps_sub_ra(t_ps_deck *a, t_ops_deck *ops)
+int	ps_sub_ra(t_ps_deque *a, t_ops_deque *ops)
 {
 	t_ps_subseq	*top;
 	int			check;
@@ -36,7 +36,7 @@ int	ps_sub_ra(t_ps_deck *a, t_ops_deck *ops)
 	return (check);
 }
 
-int	ps_sub_rb(t_ps_deck *b, t_ops_deck *ops)
+int	ps_sub_rb(t_ps_deque *b, t_ops_deque *ops)
 {
 	t_ps_subseq	*top;
 	int			check;
@@ -60,7 +60,7 @@ int	ps_sub_rb(t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	ps_sub_rrb(t_ps_deck *b, t_ops_deck *ops)
+int	ps_sub_rrb(t_ps_deque *b, t_ops_deque *ops)
 {
 	t_ps_subseq	*bottom;
 	int			check;
@@ -84,7 +84,7 @@ int	ps_sub_rrb(t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	ps_sub_pa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	ps_sub_pa(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	t_ps_subseq	*top;
 	t_ps_node	*tmp;
@@ -111,7 +111,7 @@ int	ps_sub_pa(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
 	return (check);
 }
 
-int	ps_sub_pb(t_ps_deck *a, t_ps_deck *b, t_ops_deck *ops)
+int	ps_sub_pb(t_ps_deque *a, t_ps_deque *b, t_ops_deque *ops)
 {
 	t_ps_subseq	*top;
 	t_ps_node	*tmp;
