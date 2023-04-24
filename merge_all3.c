@@ -6,7 +6,7 @@
 /*   By: joonhlee <joonhlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:05:41 by joonhlee          #+#    #+#             */
-/*   Updated: 2023/04/23 13:14:56 by joonhlee         ###   ########.fr       */
+/*   Updated: 2023/04/23 13:33:58 by joonhlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,19 @@ void	submerge_tops_to_b(t_ps_deque *a, t_ps_deque *b)
 	next_sub = sub_remove_top(a);
 	sign = (top_sub->sub_ind > 0) * 1 + (top_sub->sub_ind < 0) * -1;
 	top_sub->n_node = top_sub->n_node + next_sub->n_node;
-	if (top_sub->top->raw * sign > next_sub->top->raw * sign)
+	if ((sign > 0 && top_sub->top->raw > next_sub->top->raw)
+		|| (sign < 0 && top_sub->top->raw < next_sub->top->raw))
 		top_sub->top = next_sub->top;
-	if (top_sub->bottom->raw * sign < next_sub->bottom->raw * sign)
+	if ((sign > 0 && top_sub->bottom->raw < next_sub->bottom->raw)
+		|| (sign < 0 && top_sub->bottom->raw > next_sub->bottom->raw))
 		top_sub->bottom = next_sub->bottom;
-	clear_sub(next_sub);
 	node_iter = top_sub->top;
-	while (node_iter)
+	while (node_iter && ((node_iter->sub_ind == top_sub->sub_ind)
+			|| (node_iter->sub_ind == next_sub->sub_ind)))
 	{
 		node_iter->sub_ind = top_sub->sub_ind;
 		node_iter = node_iter->next;
 	}
+	clear_sub(next_sub);
 	sub_add_top(b, top_sub);
 }
